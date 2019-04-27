@@ -1,4 +1,3 @@
- 
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -134,8 +133,22 @@ public class Cliente
     public void setClassificacao(int c){
         this.classificacao = c;
     }
-        
-        
+    
+    protected Cliente clone() {
+        return new Cliente(this);
+    }
+    
+    public boolean equals(Object obj) {
+       if(obj==this) return true;
+       if(obj==null || obj.getClass()!=this.getClass()) return false;
+       Cliente c = (Cliente) obj;
+       return this.email.equals(c.getEmail()) && this.nome.equals(c.getNome()) && 
+                this.password.equals(c.getPassword()) && this.morada.equals(c.getMorada()) &&
+                this.dataNasc.equals(c.getDataNasc()) && this.posX == c.getPosX() && this.posY == c.getPosY() &&
+                this.classificacao == c.getClassificacao(); //falta historico
+    }
+     
+}
         
         
         

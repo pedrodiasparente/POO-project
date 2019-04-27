@@ -67,4 +67,10 @@ public class DadosAluguer
     public void setClassificacao(int c){
         this.classificacao = c;
     }
+    
+    protected DadosAluguer clone() {
+        return new DadosAluguer(this);
+    }
+    
+    
 }

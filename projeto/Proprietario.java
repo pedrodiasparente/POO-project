@@ -113,9 +113,18 @@ public class Proprietario
         this.classificacao = c;
     }
         
+    protected Proprietario clone() {
+        return new Proprietario(this);
+    }    
         
-        
-    
+    public boolean equals(Object obj) {
+       if(obj==this) return true;
+       if(obj==null || obj.getClass()!=this.getClass()) return false;
+       Proprietario p = (Proprietario) obj;
+       return this.email.equals(p.getEmail()) && this.nome.equals(p.getNome()) && 
+                this.password.equals(p.getPassword()) && this.morada.equals(p.getMorada()) &&
+                this.dataNasc.equals(p.getDataNasc()) && this.classificacao == p.getClassificacao(); //falta historico e viaturas
+    }
     
     
     

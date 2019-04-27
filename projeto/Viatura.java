@@ -145,5 +145,19 @@ public class Viatura
     public void setAutonomia(double a){
         this.autonomia = a;
     }
+    
+    protected Viatura clone() {
+        return new Viatura(this);
+    }
+    
+    public boolean equals(Object obj) {
+       if(obj==this) return true;
+       if(obj==null || obj.getClass()!=this.getClass()) return false;
+       Viatura v = (Viatura) obj;
+       return this.tipo == v.getTipo() && this.vMedia == v.getVMedia() && this.preço == v.getPreço() && 
+              this.consumo == v.getConsumo() && this.posX == v.getPosX() && this.posY == v.getPosY() &&
+              this.autonomia == v.getAutonomia() && this.classificacao == v.getClassificacao() && 
+              this.combustivel == v.getCombustivel(); //falta listas
+    }
 }
     
