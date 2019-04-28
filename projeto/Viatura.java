@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public class Viatura
 {
-    private int tipo; 
     private double vMedia;
     private double preço;
     private double consumo;
@@ -22,7 +21,6 @@ public class Viatura
     private double combustivel;
     
     public Viatura(){
-        this.tipo = -1;
         this.vMedia = 0;
         this.preço = 0;
         this.consumo = 0;
@@ -34,10 +32,9 @@ public class Viatura
         this.combustivel = 0;
     }
     
-    public Viatura(int tipo, double vmedia, double preço, double consumo, List<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel){ 
-        this.tipo = tipo;
+    public Viatura(double vmedia, double preco, double consumo, List<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel){ 
         this.vMedia = vmedia;
-        this.preço = preço;
+        this.preço = preco;
         this.consumo = consumo;
         setHistorico(hist);
         this.posX = posx;
@@ -48,7 +45,6 @@ public class Viatura
     }
     
     public Viatura(Viatura v){
-        this.tipo = v.getTipo();
         this.vMedia = v.getVMedia();
         this.preço = v.getPreço();
         this.consumo = v.getConsumo();
@@ -58,10 +54,6 @@ public class Viatura
         this.classificacao = v.getClassificacao();
         this.autonomia = v.getAutonomia();
         this.combustivel = v.getCombustivel();
-    }
-    
-    public int getTipo(){
-        return this.tipo;
     }
     
     public double getVMedia(){
@@ -103,10 +95,6 @@ public class Viatura
     
     public double getCombustivel(){
         return this.combustivel;
-    }
-    
-    public void setTipo(int t){
-        this.tipo = t;
     }
     
     public void setVMedia(double v){
@@ -154,7 +142,7 @@ public class Viatura
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        Viatura v = (Viatura) obj;
-       return this.tipo == v.getTipo() && this.vMedia == v.getVMedia() && this.preço == v.getPreço() && 
+       return this.vMedia == v.getVMedia() && this.preço == v.getPreço() && 
               this.consumo == v.getConsumo() && this.posX == v.getPosX() && this.posY == v.getPosY() &&
               this.autonomia == v.getAutonomia() && this.classificacao == v.getClassificacao() && 
               this.combustivel == v.getCombustivel(); //falta listas

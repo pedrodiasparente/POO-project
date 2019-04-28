@@ -31,4 +31,20 @@ public class Cliente extends Atores
         this.posX = c.getPosX();
         this.posY = c.getPosY();
     }
+    
+    public double getPosX() {
+        return this.posX;
+    }
+    
+    public double getPosY() {
+        return this.posY;
+    }
+    
+    public void setPosX(double x) {
+        this.posX = x;
+    }
+    
+    public void setPosY(double y) {
+        this.posY = y;
+    }
 }

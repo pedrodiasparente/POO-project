@@ -16,7 +16,6 @@ public class Atores{
     private LocalDate dataNasc;
     private double classificacao;
     private List<DadosAluguer> historico;
-    private List<Viatura> viaturas;
     
     public Atores(){
         this.email = "";
@@ -26,7 +25,6 @@ public class Atores{
         this.dataNasc.of(1,1,1);
         this.classificacao = 0;
         this.historico = new ArrayList<>();
-        this.viaturas = new ArrayList<>();
     }
     
     public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, List<DadosAluguer> historico, double classificacao){
