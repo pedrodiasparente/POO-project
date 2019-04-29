@@ -72,5 +72,5 @@ public class DadosAluguer
         return new DadosAluguer(this);
     }
     
-    
+    //nao tem equals
 }

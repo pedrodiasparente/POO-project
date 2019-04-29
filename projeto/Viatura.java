@@ -19,6 +19,8 @@ public class Viatura
     private double posY;
     private double autonomia;
     private double combustivel;
+    private String marca;
+    private String matricula;
     
     public Viatura(){
         this.vMedia = 0;
@@ -30,9 +32,11 @@ public class Viatura
         this.posY = 0;
         this.autonomia = 0;
         this.combustivel = 0;
+        this.marca = "";
+        this.matricula = "00-00-00";
     }
     
-    public Viatura(double vmedia, double preco, double consumo, List<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel){ 
+    public Viatura(double vmedia, double preco, double consumo, List<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula){ 
         this.vMedia = vmedia;
         this.preço = preco;
         this.consumo = consumo;
@@ -42,6 +46,8 @@ public class Viatura
         this.classificacao = classi;
         this.autonomia = autonomia;
         this.combustivel = combustivel;
+        this.marca = marca;
+        this.matricula = matricula;
     }
     
     public Viatura(Viatura v){
@@ -54,6 +60,8 @@ public class Viatura
         this.classificacao = v.getClassificacao();
         this.autonomia = v.getAutonomia();
         this.combustivel = v.getCombustivel();
+        this.marca = v.getMarca();
+        this.matricula = v.getMatricula();
     }
     
     public double getVMedia(){
@@ -97,6 +105,14 @@ public class Viatura
         return this.combustivel;
     }
     
+    public String getMarca(){
+        return this.marca;
+    }
+    
+    public String getMatricula(){
+        return this.matricula;
+    }
+    
     public void setVMedia(double v){
         this.vMedia = v;
     }
@@ -134,6 +150,14 @@ public class Viatura
         this.autonomia = a;
     }
     
+    public void setMarca(String marca){
+        this.marca = marca;
+    }
+    
+    public void setMatricula(String matricula){
+        this.matricula = matricula;
+    }
+    
     protected Viatura clone() {
         return new Viatura(this);
     }
@@ -145,7 +169,8 @@ public class Viatura
        return this.vMedia == v.getVMedia() && this.preço == v.getPreço() && 
               this.consumo == v.getConsumo() && this.posX == v.getPosX() && this.posY == v.getPosY() &&
               this.autonomia == v.getAutonomia() && this.classificacao == v.getClassificacao() && 
-              this.combustivel == v.getCombustivel(); //falta listas
+              this.combustivel == v.getCombustivel() && this.marca.equals(v.getMarca()) &&
+              this.matricula.equals(v.getMatricula()); //falta listas
     }
 }
     

@@ -14,7 +14,6 @@ public class Atores{
     private String password;
     private String morada;
     private LocalDate dataNasc;
-    private double classificacao;
     private List<DadosAluguer> historico;
     
     public Atores(){
@@ -23,18 +22,16 @@ public class Atores{
         this.password = "";
         this.morada = "";
         this.dataNasc.of(1,1,1);
-        this.classificacao = 0;
         this.historico = new ArrayList<>();
     }
     
-    public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, List<DadosAluguer> historico, double classificacao){
+    public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, List<DadosAluguer> historico){
         this.email = email;
         this.nome = nome;
         this.password = password;
         this.morada = morada;
         this.dataNasc = dataNasc;      
         setHistorico(historico);
-        this.classificacao = classificacao;
     }
     
     public Atores(Atores p){
@@ -44,7 +41,6 @@ public class Atores{
         this.morada = p.getMorada();
         this.dataNasc = p.getDataNasc();
         this.historico = p.getHistorico();
-        this.classificacao = p.getClassificacao();
     }
     
     public String getEmail(){
@@ -76,10 +72,6 @@ public class Atores{
         return hist;
     }
     
-    public double getClassificacao(){
-        return this.classificacao;
-    }
-    
     public void setEmail(String email){
         this.email = email;
     }
@@ -104,25 +96,14 @@ public class Atores{
         this.historico = new ArrayList<>();
         historico.forEach(s -> {this.historico.add(s);});
     }
-        
-    public void setClassificacao(int c){
-        this.classificacao = c;
-    }
-        
-    public Atores clone() {
-        return new Atores(this);
-    }    
-        
+
     public boolean equals(Object obj) {
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        Atores a = (Atores) obj;
        return this.email.equals(a.getEmail()) && this.nome.equals(a.getNome()) && 
                 this.password.equals(a.getPassword()) && this.morada.equals(a.getMorada()) &&
-                this.dataNasc.equals(a.getDataNasc()) && this.classificacao == a.getClassificacao(); //falta historico e viaturas
+                this.dataNasc.equals(a.getDataNasc()); //falta historico
     }
-    
-    
-    
-    
+
 }
