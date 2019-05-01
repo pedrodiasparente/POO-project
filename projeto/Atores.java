@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.time.LocalDate;
 
 /**
@@ -14,7 +13,7 @@ public class Atores{
     private String password;
     private String morada;
     private LocalDate dataNasc;
-    private List<DadosAluguer> historico;
+    private Set<DadosAluguer> historico;
     
     public Atores(){
         this.email = "";
@@ -22,10 +21,10 @@ public class Atores{
         this.password = "";
         this.morada = "";
         this.dataNasc.of(1,1,1);
-        this.historico = new ArrayList<>();
+        this.historico = new TreeSet<>();
     }
     
-    public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, List<DadosAluguer> historico){
+    public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico){
         this.email = email;
         this.nome = nome;
         this.password = password;
@@ -63,10 +62,10 @@ public class Atores{
         return this.dataNasc;
     }
     
-    public List<DadosAluguer> getHistorico(){
-        List<DadosAluguer> hist = new ArrayList<>();
+    public Set<DadosAluguer> getHistorico(){
+        Set<DadosAluguer> hist = new TreeSet<>();
         
-        for(DadosAluguer s : historico){
+        for(DadosAluguer s : this.historico){
             hist.add(s);
         }
         return hist;
@@ -92,11 +91,15 @@ public class Atores{
         this.dataNasc = data;
     }
     
-    public void setHistorico(List<DadosAluguer> l){
-        this.historico = new ArrayList<>();
+    public void setHistorico(Set<DadosAluguer> l){
+        this.historico = new TreeSet<>();
         historico.forEach(s -> {this.historico.add(s);});
     }
-
+    
+    public void addAluguer(DadosAluguer aluguer) {
+        this.historico.add(aluguer);
+    }
+    
     public boolean equals(Object obj) {
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
@@ -105,5 +108,8 @@ public class Atores{
                 this.password.equals(a.getPassword()) && this.morada.equals(a.getMorada()) &&
                 this.dataNasc.equals(a.getDataNasc()); //falta historico
     }
-
+    
+    public String toString() {
+        return "\nemail: " + getEmail() + " nome: " + getNome() + "\npassword: " + getPassword() + " morada: " + getMorada() + "\ndata de nascimento: " + getDataNasc() + "\nhist: " + getHistorico();
+    }
 }

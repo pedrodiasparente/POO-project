@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.time.LocalDate;
 
 /**
@@ -21,7 +20,7 @@ public class Cliente extends Atores
         this.id = "";
     }
     
-    public Cliente(String email, String password, String nome, String morada, LocalDate dataNasc, double posX, double posY, List<DadosAluguer> historico, String id){
+    public Cliente(String email, String password, String nome, String morada, LocalDate dataNasc, double posX, double posY, Set<DadosAluguer> historico, String id){
         super(email,password,nome,morada, dataNasc, historico);
         this.posX = posX;
         this.posY = posY;
@@ -68,5 +67,9 @@ public class Cliente extends Atores
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        Cliente a = (Cliente) obj;
        return super.equals(obj) && this.posX == a.getPosX() && this.posY == a.getPosY() && this.id.equals(a.getId());//falta historico e viaturas
+    }
+    
+    public String toString(){
+        return "Id: " + this.id + " posx: " + this.posX + " psy: " + this.posY + super.toString();
     }
 }

@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.time.LocalDate;
 
 /**
@@ -22,7 +21,7 @@ public class Proprietario extends Atores
         this.classificacao = 0;
     }
     
-    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, List<DadosAluguer> historico, double classificacao, List<Viatura> viaturaList){
+    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, double classificacao, List<Viatura> viaturaList){
         super(email,password,nome,morada, dataNasc, historico);
         this.viaturaList = viaturaList;
         this.classificacao = classificacao;

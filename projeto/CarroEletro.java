@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.time.LocalDate;
 
 /**
@@ -19,9 +18,9 @@ public class CarroEletro extends Viatura
         super();
     }
     
-    public CarroEletro(double vmedia, double preco, double consumo, List<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel)
+    public CarroEletro(double vmedia, double preco, double consumo, Set<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula)
     {
-        super(vmedia, preco, consumo, hist, posx, posy, classi, autonomia, combustivel);
+        super(vmedia, preco, consumo, hist, posx, posy, classi, autonomia, combustivel, marca, matricula);
     }
     
     public CarroEletro(CarroEletro c)

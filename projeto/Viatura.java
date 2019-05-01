@@ -1,6 +1,5 @@
- 
-import java.util.List;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  * Escreva a descrição da classe Viatura aqui.
@@ -13,7 +12,7 @@ public class Viatura
     private double vMedia;
     private double preço;
     private double consumo;
-    private List<DadosAluguer> historico;
+    private Set<DadosAluguer> historico;
     private double classificacao;
     private double posX;
     private double posY;
@@ -26,7 +25,7 @@ public class Viatura
         this.vMedia = 0;
         this.preço = 0;
         this.consumo = 0;
-        this.historico = new ArrayList<>();
+        this.historico = new TreeSet<>();
         this.classificacao = 0;
         this.posX = 0;
         this.posY = 0;
@@ -36,7 +35,7 @@ public class Viatura
         this.matricula = "00-00-00";
     }
     
-    public Viatura(double vmedia, double preco, double consumo, List<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula){ 
+    public Viatura(double vmedia, double preco, double consumo, Set<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula){ 
         this.vMedia = vmedia;
         this.preço = preco;
         this.consumo = consumo;
@@ -76,10 +75,10 @@ public class Viatura
         return this.consumo;
     }
     
-    public List<DadosAluguer> getHistorico(){
-        List<DadosAluguer> hist = new ArrayList<>();
+    public Set<DadosAluguer> getHistorico(){
+        Set<DadosAluguer> hist = new TreeSet<>();
         
-        for(DadosAluguer s : historico){
+        for(DadosAluguer s : this.historico){
             hist.add(s);
         }
         return hist;
@@ -121,8 +120,8 @@ public class Viatura
         this.preço = p;
     }
     
-    public void setHistorico(List<DadosAluguer> l){
-        this.historico = new ArrayList<>();
+    public void setHistorico(Set<DadosAluguer> l){
+        this.historico = new TreeSet<>();
         historico.forEach(s -> {this.historico.add(s);});
     }
     
