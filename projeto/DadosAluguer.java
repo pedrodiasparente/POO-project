@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class DadosAluguer
+public class DadosAluguer implements Comparable<DadosAluguer>
 {
     private Viatura viatura;
     private Proprietario proprietario;
@@ -34,6 +34,15 @@ public class DadosAluguer
         this.proprietario = d.getProprietario();
         this.cliente = d.getCliente();
         this.classificacao = d.getClassificacao();
+    }
+    
+    public int compareTo(DadosAluguer a) {
+        double classificacao = a.getClassificacao();
+        int res;
+        
+        if(this.classificacao <= classificacao) res = -1;
+        else res = 1;
+        return res;
     }
     
     public Viatura getViatura(){

@@ -10,7 +10,7 @@ import java.util.*;
 public class Viatura
 {
     private double vMedia;
-    private double preço;
+    private double preco;
     private double consumo;
     private Set<DadosAluguer> historico;
     private double classificacao;
@@ -23,7 +23,7 @@ public class Viatura
     
     public Viatura(){
         this.vMedia = 0;
-        this.preço = 0;
+        this.preco = 0;
         this.consumo = 0;
         this.historico = new TreeSet<>();
         this.classificacao = 0;
@@ -37,7 +37,7 @@ public class Viatura
     
     public Viatura(double vmedia, double preco, double consumo, Set<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula){ 
         this.vMedia = vmedia;
-        this.preço = preco;
+        this.preco = preco;
         this.consumo = consumo;
         setHistorico(hist);
         this.posX = posx;
@@ -51,7 +51,7 @@ public class Viatura
     
     public Viatura(Viatura v){
         this.vMedia = v.getVMedia();
-        this.preço = v.getPreço();
+        this.preco = v.getPreco();
         this.consumo = v.getConsumo();
         this.historico  =v.getHistorico();
         this.posX = v.getPosX();
@@ -67,8 +67,8 @@ public class Viatura
         return this.vMedia;
     }
     
-    public double getPreço(){
-        return this.preço;
+    public double getPreco(){
+        return this.preco;
     }
     
     public double getConsumo(){
@@ -116,13 +116,17 @@ public class Viatura
         this.vMedia = v;
     }
     
-    public void setPreço(double p){
-        this.preço = p;
+    public void setPreco(double p){
+        this.preco = p;
     }
     
     public void setHistorico(Set<DadosAluguer> l){
         this.historico = new TreeSet<>();
         historico.forEach(s -> {this.historico.add(s);});
+    }
+    
+    public void addAluguer(DadosAluguer aluguer) {
+        this.historico.add(aluguer);
     }
     
     public void setConsumo(double c){
@@ -165,11 +169,15 @@ public class Viatura
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        Viatura v = (Viatura) obj;
-       return this.vMedia == v.getVMedia() && this.preço == v.getPreço() && 
+       return this.vMedia == v.getVMedia() && this.preco == v.getPreco() && 
               this.consumo == v.getConsumo() && this.posX == v.getPosX() && this.posY == v.getPosY() &&
               this.autonomia == v.getAutonomia() && this.classificacao == v.getClassificacao() && 
               this.combustivel == v.getCombustivel() && this.marca.equals(v.getMarca()) &&
               this.matricula.equals(v.getMatricula()); //falta listas
+    }
+    
+    public String toString() {
+        return "VelocMedia: " + getVMedia() + " Preco: " + getPreco() + " Consumo: " + getConsumo() + "\nClassificacao: " + getClassificacao() + " PosX: " + getPosX() + " PosY: " + getPosY() + "\nAutonomia: " + getAutonomia() + " Combustivel: " + getCombustivel() + "\nMarca: " + getMarca() + " Matricula: " + getMatricula() + "\nHistorico: " + getHistorico();
     }
 }
     

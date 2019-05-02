@@ -55,6 +55,10 @@ public class Proprietario extends Atores
         this.classificacao = c;
     }
     
+    public void addViatura(Viatura viatura) {
+        this.viaturaList.add(viatura);
+    }
+    
     public Proprietario clone() {
         return new Proprietario(this);
     }
@@ -64,5 +68,9 @@ public class Proprietario extends Atores
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        Proprietario a = (Proprietario) obj;
        return super.equals(obj) && this.classificacao == a.getClassificacao(); //falta viaturas
+    }
+    
+    public String toString(){
+        return super.toString() + "\nClassificacao " + getClassificacao() + " Viaturas: " + getViaturaList();
     }
 }

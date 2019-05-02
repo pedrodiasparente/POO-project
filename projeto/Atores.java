@@ -21,7 +21,7 @@ public class Atores{
         this.password = "";
         this.morada = "";
         this.dataNasc.of(1,1,1);
-        this.historico = new TreeSet<>();
+        this.historico = new TreeSet<DadosAluguer>();
     }
     
     public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico){
