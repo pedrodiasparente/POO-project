@@ -77,8 +77,12 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         this.classificacao = c;
     }
     
-    protected DadosAluguer clone() {
+    public DadosAluguer clone() {
         return new DadosAluguer(this);
+    }
+    
+    public String toString() {
+        return "Proprietario: " + getProprietario().getNome() + " Cliente: " + getCliente().getNome() + " Viatura: " + getViatura().getMatricula() + " Classificacao: " + getClassificacao();
     }
     
     //nao tem equals

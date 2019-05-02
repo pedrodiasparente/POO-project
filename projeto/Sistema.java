@@ -38,7 +38,7 @@ public class Sistema
     public Set<Cliente> getClientes(){
         Set<Cliente> res = new TreeSet<>();
         
-        for(Cliente c : clientes){
+        for(Cliente c : this.clientes){
             res.add(c);
         }
         
@@ -48,7 +48,7 @@ public class Sistema
     public Set<Proprietario> getProprietarios(){
         Set<Proprietario> res = new TreeSet<>();
         
-        for(Proprietario p : proprietarios){
+        for(Proprietario p : this.proprietarios){
             res.add(p);
         }
         
@@ -58,7 +58,7 @@ public class Sistema
     public Set<Viatura> getViaturas(){
         Set<Viatura> res = new TreeSet<>();
         
-        for(Viatura v : viaturas){
+        for(Viatura v : this.viaturas){
             res.add(v);
         }
         
@@ -68,7 +68,7 @@ public class Sistema
     public Set<DadosAluguer> getTotHist(){
         Set<DadosAluguer> res = new TreeSet<>();
         
-        for(DadosAluguer d : totHist){
+        for(DadosAluguer d : this.totHist){
             res.add(d);
         }
         
@@ -80,26 +80,44 @@ public class Sistema
         clientes.forEach(s -> {this.clientes.add(s);});
     }
     
-      public void setProprietarios(Set<Proprietario> p){
+    public void setProprietarios(Set<Proprietario> p){
         this.proprietarios = new TreeSet<>();
         proprietarios.forEach(s -> {this.proprietarios.add(s);});
     }
     
-      public void setViaturas(Set<Viatura> v){
-        this.clientes = new TreeSet<>();
-        clientes.forEach(s -> {this.clientes.add(s);});
+    public void setViaturas(Set<Viatura> v){
+        this.viaturas = new TreeSet<>();
+        viaturas.forEach(s -> {this.viaturas.add(s);});
     }
     
-      public void setDados(Set<DadosAluguer> d){
+    public void setDados(Set<DadosAluguer> d){
         this.totHist = new TreeSet<>();
         totHist.forEach(s -> {this.totHist.add(s);});
+    }
+    
+    public void addCliente(Cliente clientes) {
+        this.clientes.add(clientes);
+    }
+    
+    public void addProprietario(Proprietario prop) {
+        this.proprietarios.add(prop);
+    }
+    
+    public void addViatura(Viatura viatura) {
+        this.viaturas.add(viatura);
+    }
+    
+    public void addAluguer(DadosAluguer aluguer) {
+        this.totHist.add(aluguer);
     }
     
     public Sistema clone(){
         return new Sistema(this);
     }
         
-        
+    public String toString() {
+        return "Sistema =>\nClientes: " + getClientes() + "\nProprietarios: " + getProprietarios() + "\nViaturas: " + getViaturas() + "\nTotalHistory: " + getTotHist();
+    }
     
     
     

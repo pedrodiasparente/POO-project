@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.*;
+import java.lang.String;
 
 /**
  * Escreva a descrição da classe Viatura aqui.
@@ -7,7 +8,7 @@ import java.util.*;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class Viatura
+public class Viatura implements Comparable<Viatura>
 {
     private double vMedia;
     private double preco;
@@ -61,6 +62,15 @@ public class Viatura
         this.combustivel = v.getCombustivel();
         this.marca = v.getMarca();
         this.matricula = v.getMatricula();
+    }
+    
+    public int compareTo(Viatura a) {
+        String matricula = a.getMatricula();
+        int res = this.matricula.compareTo(matricula);
+        
+        if(res <= 0) res = -1;
+        else res = 1;
+        return res;
     }
     
     public double getVMedia(){

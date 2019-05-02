@@ -9,7 +9,7 @@ import java.time.LocalDate;
  */
 public class Proprietario extends Atores
 {
-    private List<Viatura> viaturaList;
+    private Set<Viatura> viaturaList;
     private double classificacao;
     
     /**
@@ -17,11 +17,11 @@ public class Proprietario extends Atores
      */
     public Proprietario(){
         super();
-        this.viaturaList = new ArrayList<>();
+        this.viaturaList = new TreeSet<>();
         this.classificacao = 0;
     }
     
-    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, double classificacao, List<Viatura> viaturaList){
+    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, double classificacao, Set<Viatura> viaturaList){
         super(email,password,nome,morada, dataNasc, historico);
         this.viaturaList = viaturaList;
         this.classificacao = classificacao;
@@ -33,21 +33,21 @@ public class Proprietario extends Atores
         this.classificacao = p.getClassificacao();
     }
     
-    public List<Viatura> getViaturaList() {
-        List<Viatura> viaturaList = new ArrayList<>();
+    public Set<Viatura> getViaturaList() {
+        Set<Viatura> viaturaList = new TreeSet<>();
         
-        for(Viatura s : viaturaList){
+        for(Viatura s : this.viaturaList){
             viaturaList.add(s);
         }
         return viaturaList;
     }
     
-        public double getClassificacao(){
+    public double getClassificacao(){
         return this.classificacao;
     }
     
-    public void setViaturaList(List<Viatura> l){
-        this.viaturaList = new ArrayList<>();
+    public void setViaturaList(Set<Viatura> l){
+        this.viaturaList = new TreeSet<>();
         viaturaList.forEach(s -> {this.viaturaList.add(s);});
     }
             

@@ -70,6 +70,6 @@ public class Cliente extends Atores
     }
     
     public String toString(){
-        return "Id: " + this.id + " posx: " + this.posX + " psy: " + this.posY + super.toString();
+        return "Id: " + this.id + " posx: " + this.posX + " psy: " + this.posY + "\n" + super.toString();
     }
 }

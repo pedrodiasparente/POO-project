@@ -14,6 +14,7 @@ public class main
         Proprietario proprietario = new Proprietario();
         Viatura viatura = new Viatura();
         DadosAluguer aluguer = new DadosAluguer();
+        Sistema systemLogs = new Sistema();
         
         cliente.setId("21312");
         cliente.setEmail("randomemail@gmail.com");
@@ -51,11 +52,20 @@ public class main
         
         cliente.addAluguer(aluguer);
         cliente.addAluguer(aluguerClone);
+        viatura.addAluguer(aluguer);
+        viatura.addAluguer(aluguerClone);
+        proprietario.addAluguer(aluguer);
+        proprietario.addAluguer(aluguerClone);
         proprietario.addViatura(viatura);
+        systemLogs.addCliente(cliente);
+        systemLogs.addViatura(viatura);
+        systemLogs.addProprietario(proprietario);
+        systemLogs.addAluguer(aluguer);
         
         System.out.println("Cliente => " + cliente.toString() + "\n\n\n");
         System.out.println("Viatura => " + viatura.toString() + "\n\n\n");
-        System.out.println("Proprietario => " + proprietario.toString());
+        System.out.println("Proprietario => " + proprietario.toString() + "\n\n\n");
+        System.out.println(systemLogs.toString());
         
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class Atores{
+public class Atores implements Comparable<Atores>{
     private String email;
     private String nome;
     private String password;
@@ -96,6 +96,15 @@ public class Atores{
         historico.forEach(s -> {this.historico.add(s);});
     }
     
+    public int compareTo(Atores a) {
+        String nome = a.getNome();
+        int res = this.nome.compareTo(nome);
+        
+        if(res <= 0) res = -1;
+        else res = 1;
+        return res;
+    }
+    
     public void addAluguer(DadosAluguer aluguer) {
         this.historico.add(aluguer);
     }
@@ -110,6 +119,6 @@ public class Atores{
     }
     
     public String toString() {
-        return "\nemail: " + getEmail() + " nome: " + getNome() + "\npassword: " + getPassword() + " morada: " + getMorada() + "\ndata de nascimento: " + getDataNasc() + "\nhist: " + getHistorico();
+        return "email: " + getEmail() + " nome: " + getNome() + "\npassword: " + getPassword() + " morada: " + getMorada() + "\ndata de nascimento: " + getDataNasc() + "\nhist: " + getHistorico();
     }
 }
