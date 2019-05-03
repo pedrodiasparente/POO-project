@@ -27,4 +27,8 @@ public class CarroGas extends Viatura
     {
         super(c);
     }
+    
+    public CarroGas clone() {
+        return new CarroGas(this);
+    }
 }

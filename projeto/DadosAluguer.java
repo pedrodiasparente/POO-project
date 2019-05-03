@@ -85,5 +85,10 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         return "Proprietario: " + getProprietario().getNome() + " Cliente: " + getCliente().getNome() + " Viatura: " + getViatura().getMatricula() + " Classificacao: " + getClassificacao();
     }
     
-    //nao tem equals
+    public boolean equals(Object obj) {
+       if(obj==this) return true;
+       if(obj==null || obj.getClass()!=this.getClass()) return false;
+       DadosAluguer a = (DadosAluguer) obj;
+       return this.classificacao == a.getClassificacao() && this.cliente.equals(a.getCliente()) && this.viatura.equals(a.getViatura()) && this.proprietario.equals(getProprietario());
+    }
 }

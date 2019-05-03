@@ -12,7 +12,7 @@ public class main
         LocalDate date = LocalDate.now();
         Cliente cliente = new Cliente();
         Proprietario proprietario = new Proprietario();
-        Viatura viatura = new Viatura();
+        CarroGas viatura = new CarroGas();
         DadosAluguer aluguer = new DadosAluguer();
         Sistema systemLogs = new Sistema();
         
@@ -49,6 +49,9 @@ public class main
         aluguer.setClassificacao(100);
         
         DadosAluguer aluguerClone = aluguer.clone();
+        Cliente clienteClone = cliente.clone();
+        CarroGas viaturaClone = viatura.clone();
+        Proprietario proprietarioClone = proprietario.clone();
         
         cliente.addAluguer(aluguer);
         cliente.addAluguer(aluguerClone);
@@ -65,7 +68,8 @@ public class main
         System.out.println("Cliente => " + cliente.toString() + "\n\n\n");
         System.out.println("Viatura => " + viatura.toString() + "\n\n\n");
         System.out.println("Proprietario => " + proprietario.toString() + "\n\n\n");
-        System.out.println(systemLogs.toString());
+        System.out.println(systemLogs.toString() + "\n\n\n\n");
+        System.out.println("client: " + cliente.equals(clienteClone) + "\nproprietario: " + proprietario.equals(proprietarioClone) + "\nviatura: " + viatura.equals(viaturaClone) + "\ndados aluguer: " + aluguer.equals(aluguerClone));
         
     }
 }

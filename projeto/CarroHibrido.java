@@ -27,4 +27,8 @@ public class CarroHibrido extends Viatura
     {
         super(c);
     }
+    
+    public CarroHibrido clone() {
+        return new CarroHibrido(this);
+    }
 }

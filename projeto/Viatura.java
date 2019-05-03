@@ -68,8 +68,9 @@ public class Viatura implements Comparable<Viatura>
         String matricula = a.getMatricula();
         int res = this.matricula.compareTo(matricula);
         
-        if(res <= 0) res = -1;
-        else res = 1;
+        if(res < 0) res = -1;
+        else if (res > 0) res = 1;
+        else res = 0;
         return res;
     }
     
@@ -171,10 +172,6 @@ public class Viatura implements Comparable<Viatura>
         this.matricula = matricula;
     }
     
-    protected Viatura clone() {
-        return new Viatura(this);
-    }
-    
     public boolean equals(Object obj) {
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
@@ -183,7 +180,7 @@ public class Viatura implements Comparable<Viatura>
               this.consumo == v.getConsumo() && this.posX == v.getPosX() && this.posY == v.getPosY() &&
               this.autonomia == v.getAutonomia() && this.classificacao == v.getClassificacao() && 
               this.combustivel == v.getCombustivel() && this.marca.equals(v.getMarca()) &&
-              this.matricula.equals(v.getMatricula()); //falta listas
+              this.matricula.equals(v.getMatricula()); //falta historico
     }
     
     public String toString() {

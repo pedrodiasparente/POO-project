@@ -66,7 +66,7 @@ public class Cliente extends Atores
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        Cliente a = (Cliente) obj;
-       return super.equals(obj) && this.posX == a.getPosX() && this.posY == a.getPosY() && this.id.equals(a.getId());//falta historico e viaturas
+       return super.equals(obj) && this.posX == a.getPosX() && this.posY == a.getPosY() && this.id.equals(a.getId());
     }
     
     public String toString(){

@@ -27,4 +27,8 @@ public class CarroEletro extends Viatura
     {
         super(c);
     }
+    
+    public CarroEletro clone() {
+        return new CarroEletro(this);
+    }
 }
