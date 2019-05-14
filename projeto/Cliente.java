@@ -72,4 +72,26 @@ public class Cliente extends Atores
     public String toString(){
         return "Id: " + this.id + " posx: " + this.posX + " psy: " + this.posY + "\n" + super.toString();
     }
+    
+    public Viatura solicitaCarroMaisPerto(Sistema s){
+        
+        int min = 999999999,x,y;
+        double dist;
+        Viatura ve = new Viatura();
+            
+        for(Viatura v : s.getViaturas){
+            x = v.getPosX();
+            y = v.getPosY();
+            dist = Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2);
+            if (min > dist){
+                min = dist;
+                ve = v;
+            }     
+  }
+    return ve;
+}
+   
+    public Viatura solicitaCarroMaisBarato(Sistema s){
+        
+        
 }
