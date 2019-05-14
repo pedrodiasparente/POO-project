@@ -75,14 +75,14 @@ public class Cliente extends Atores
     
     public Viatura solicitaCarroMaisPerto(Sistema s){
         
-        int min = 999999999,x,y;
-        double dist;
+        double min = 999999999;
+        double dist,x,y;
         Viatura ve = new Viatura();
             
-        for(Viatura v : s.getViaturas){
+        for(Viatura v : s.getViaturas()){
             x = v.getPosX();
             y = v.getPosY();
-            dist = Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2);
+            dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);
             if (min > dist){
                 min = dist;
                 ve = v;
@@ -92,6 +92,48 @@ public class Cliente extends Atores
 }
    
     public Viatura solicitaCarroMaisBarato(Sistema s){
-        
-        
+              
+        double min = 999999999, preco;        
+        Viatura ve = new Viatura();
+            
+        for(Viatura v : s.getViaturas()){
+            preco = v.getPreco();
+                        
+            if (min > preco){
+                min = preco;
+                ve = v;
+            }     
+  }
+    return ve;
+}
+
+    public Viatura solicitaCarroDistPreco(Sistema s, double distancia){    
+        double min = 999999999, preco, dist, x, y;     
+        Viatura ve = new Viatura();
+            
+        for(Viatura v : s.getViaturas()){
+            x = v.getPosX();
+            y = v.getPosY();
+            preco = v.getPreco();
+            dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);            
+            if (min > preco && dist <= distancia){
+                min = preco;
+                ve = v;
+            }     
+  }
+    return ve;
+}
+ 
+    public Viatura solicitaCarroEspecifico(Sistema s, String matricula){               
+        Viatura ve = new Viatura();
+            
+        for(Viatura v : s.getViaturas()){            
+                        
+            if (v.getMatricula().equals(matricula)){
+              ve = v;
+            }     
+  }
+    return ve;
+}
+       
 }
