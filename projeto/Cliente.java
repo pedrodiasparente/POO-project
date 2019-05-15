@@ -87,9 +87,9 @@ public class Cliente extends Atores
                 min = dist;
                 ve = v;
             }     
-  }
+     }
     return ve;
-}
+    }
    
     public Viatura solicitaCarroMaisBarato(Sistema s){
               
@@ -103,9 +103,9 @@ public class Cliente extends Atores
                 min = preco;
                 ve = v;
             }     
-  }
-    return ve;
-}
+        }
+        return ve;
+    }
 
     public Viatura solicitaCarroDistPreco(Sistema s, double distancia){    
         double min = 999999999, preco, dist, x, y;     
@@ -120,9 +120,9 @@ public class Cliente extends Atores
                 min = preco;
                 ve = v;
             }     
-  }
-    return ve;
-}
+        }
+        return ve;
+    }
  
     public Viatura solicitaCarroEspecifico(Sistema s, String matricula){               
         Viatura ve = new Viatura();
@@ -132,8 +132,22 @@ public class Cliente extends Atores
             if (v.getMatricula().equals(matricula)){
               ve = v;
             }     
-  }
-    return ve;
-}
-       
+        }
+        return ve;
+    }
+    
+    public Viatura solicitaCarroAutonomia(Sistema s, double autonomia){
+        Viatura ve = new Viatura();
+        
+        for(Viatura v : s.getViaturas()){
+            
+            if (v.getAutonomia() == autonomia){
+                ve = v;
+            }
+            
+        }
+        
+        return ve;
+    }
+                
 }

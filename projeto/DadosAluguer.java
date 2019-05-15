@@ -13,6 +13,7 @@ public class DadosAluguer implements Comparable<DadosAluguer>
     private Viatura viatura;
     private Proprietario proprietario;
     private Cliente cliente;
+    private double preco;
     private double classificacao;
     
     public DadosAluguer(){
@@ -20,13 +21,15 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         this.proprietario = new Proprietario();
         this.cliente = new Cliente();
         this.classificacao = 0;
+        this.preco = 0;
     }
     
-    public DadosAluguer(Viatura v, Proprietario p, Cliente c, double ca){
+    public DadosAluguer(Viatura v, Proprietario p, Cliente c, double ca, double preco){
         this.viatura = v;
         this.proprietario = p;
         this.cliente = c;
         this.classificacao = ca;
+        this.preco = preco;
     }
     
     public DadosAluguer(DadosAluguer d){
@@ -34,6 +37,7 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         this.proprietario = d.getProprietario();
         this.cliente = d.getCliente();
         this.classificacao = d.getClassificacao();
+        this.preco = d.getPreco();
     }
     
     public int compareTo(DadosAluguer a) {
@@ -43,6 +47,10 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         if(this.classificacao <= classificacao) res = -1;
         else res = 1;
         return res;
+    }
+    
+    public double getPreco(){
+        return this.preco;
     }
     
     public Viatura getViatura(){

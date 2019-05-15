@@ -198,5 +198,19 @@ public class Viatura implements Comparable<Viatura>
     public String toString() {
         return "VelocMedia: " + getVMedia() + " Preco: " + getPreco() + " Consumo: " + getConsumo() + "\nClassificacao: " + getClassificacao() + " PosX: " + getPosX() + " PosY: " + getPosY() + "\nAutonomia: " + getAutonomia() + " Combustivel: " + getCombustivel() + "\nMarca: " + getMarca() + " Matricula: " + getMatricula() + "\nHistorico: " + getHistorico() + "Estado:" + getEstado();
     }
+    
+    public void sinalizaVeiculo(int estado){
+        setEstado(estado);
+    }
+    
+    public void abastecerVeiculo(double quantidade){
+        this.combustivel += quantidade;
+    }
+    
+    public void alteraPrecoKm(double preco){
+        setPreco(preco);
+    }
+    
+    //falta registar preço de viagens e responder a pedidos de alguguer
 }
     
