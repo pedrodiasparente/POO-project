@@ -21,8 +21,8 @@ public class Proprietario extends Atores
         this.classificacao = 0;
     }
     
-    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, double classificacao, Set<Viatura> viaturaList){
-        super(email,password,nome,morada, dataNasc, historico);
+    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, double classificacao, Set<Viatura> viaturaList, String nif) {
+        super(email,password,nome,morada, dataNasc, historico, nif);
         this.viaturaList = viaturaList;
         this.classificacao = classificacao;
     }
@@ -72,5 +72,41 @@ public class Proprietario extends Atores
     
     public String toString(){
         return super.toString() + "\nClassificacao " + getClassificacao() + " Viaturas: " + getViaturaList();
+    }
+    
+        public void abastecerVeiculo(double quantidade, Viatura v){
+        double combustivel;
+        for(Viatura s : this.viaturaList){
+            if (s.equals(v)){
+                combustivel = s.getCombustivel();
+                s.setCombustivel(combustivel + quantidade);
+                break;
+            }
+        }
+    }
+    
+    public void alteraPrecoKm(double preco, Viatura v){
+        for(Viatura s : this.viaturaList){
+            if (s.equals(v)){
+                v.setPreco(preco);
+                break;
+            }
+        }
+    }
+    
+    public void registaPreco(Aluguer a, double classificacao){
+        double preco;
+        double x,y;
+        x = a.getPosX();
+        y = a.getPosY();
+        double dist = Math.pow(a.getViatura().getPosX() - x, 2) + Math.pow(a.getViatura().getPosY() - y, 2);
+        
+        preco = dist * a.getViatura().getPreco();
+        
+        DadosAluguer d = new DadosAluguer(a.getViatura(), this.getNif(),a.getNif(),preco,classificacao);
+        
+        addAluguer(d);
+        a.getViatura().addAluguer(d);
+        //falta meter os outros historicos idk
     }
 }

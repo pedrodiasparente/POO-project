@@ -11,31 +11,31 @@ import java.util.ArrayList;
 public class DadosAluguer implements Comparable<DadosAluguer>
 {
     private Viatura viatura;
-    private Proprietario proprietario;
-    private Cliente cliente;
+    private String nifProp;
+    private String nifClient;
     private double preco;
     private double classificacao;
     
     public DadosAluguer(){
         this.viatura = new Viatura();
-        this.proprietario = new Proprietario();
-        this.cliente = new Cliente();
+        this.nifProp = "";
+        this.nifClient = "";
         this.classificacao = 0;
         this.preco = 0;
     }
     
-    public DadosAluguer(Viatura v, Proprietario p, Cliente c, double ca, double preco){
+    public DadosAluguer(Viatura v, String p, String c, double ca, double preco){
         this.viatura = v;
-        this.proprietario = p;
-        this.cliente = c;
+        this.nifProp = p;
+        this.nifClient = c;
         this.classificacao = ca;
         this.preco = preco;
     }
     
     public DadosAluguer(DadosAluguer d){
         this.viatura = d.getViatura();
-        this.proprietario = d.getProprietario();
-        this.cliente = d.getCliente();
+        this.nifProp = d.getProprietario();
+        this.nifClient = d.getCliente();
         this.classificacao = d.getClassificacao();
         this.preco = d.getPreco();
     }
@@ -57,12 +57,12 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         return this.viatura;
     }
     
-    public Proprietario getProprietario(){
-        return this.proprietario;
+    public String getProprietario(){
+        return this.nifProp;
     }
     
-    public Cliente getCliente(){
-        return this.cliente;
+    public String getCliente(){
+        return this.nifClient;
     }
     
     public double getClassificacao(){
@@ -73,12 +73,12 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         this.viatura = v;
     }
     
-    public void setCliente(Cliente c){
-        this.cliente = c;
+    public void setCliente(String c){
+        this.nifClient = c;
     }
     
-    public void setProprietario(Proprietario p){
-        this.proprietario = p;
+    public void setProprietario(String p){
+        this.nifProp = p;
     }
     
     public void setClassificacao(int c){
@@ -90,13 +90,13 @@ public class DadosAluguer implements Comparable<DadosAluguer>
     }
     
     public String toString() {
-        return "Proprietario: " + getProprietario().getNome() + " Cliente: " + getCliente().getNome() + " Viatura: " + getViatura().getMatricula() + " Classificacao: " + getClassificacao();
+        return "Proprietario: " + getProprietario() + " Cliente: " + getCliente() + " Viatura: " + getViatura().getMatricula() + " Classificacao: " + getClassificacao();
     }
     
     public boolean equals(Object obj) {
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        DadosAluguer a = (DadosAluguer) obj;
-       return this.classificacao == a.getClassificacao() && this.cliente.equals(a.getCliente()) && this.viatura.equals(a.getViatura()) && this.proprietario.equals(getProprietario());
+       return this.classificacao == a.getClassificacao() && this.nifClient.equals(a.getCliente()) && this.viatura.equals(a.getViatura()) && this.nifProp.equals(getProprietario());
     }
 }

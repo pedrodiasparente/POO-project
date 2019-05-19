@@ -14,6 +14,7 @@ public class Atores implements Comparable<Atores>{
     private String morada;
     private LocalDate dataNasc;
     private Set<DadosAluguer> historico;
+    private String nif;
     
     public Atores(){
         this.email = "";
@@ -22,14 +23,16 @@ public class Atores implements Comparable<Atores>{
         this.morada = "";
         this.dataNasc.of(1,1,1);
         this.historico = new TreeSet<DadosAluguer>();
+        this.nif = "";
     }
     
-    public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico){
+    public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, String nif){
         this.email = email;
         this.nome = nome;
         this.password = password;
         this.morada = morada;
-        this.dataNasc = dataNasc;      
+        this.dataNasc = dataNasc;
+        this.nif = nif;
         setHistorico(historico);
     }
     
@@ -39,7 +42,12 @@ public class Atores implements Comparable<Atores>{
         this.nome = p.getNome();
         this.morada = p.getMorada();
         this.dataNasc = p.getDataNasc();
+        this.nif = p.getNif();
         this.historico = p.getHistorico();
+    }
+    
+    public String getNif() {
+        return this.nif;
     }
     
     public String getEmail(){
@@ -69,6 +77,10 @@ public class Atores implements Comparable<Atores>{
             hist.add(s);
         }
         return hist;
+    }
+    
+    public void setNif(String nif) {
+        this.nif = nif;
     }
     
     public void setEmail(String email){
@@ -115,10 +127,10 @@ public class Atores implements Comparable<Atores>{
        Atores a = (Atores) obj;
        return this.email.equals(a.getEmail()) && this.nome.equals(a.getNome()) && 
                 this.password.equals(a.getPassword()) && this.morada.equals(a.getMorada()) &&
-                this.dataNasc.equals(a.getDataNasc()); //falta historico
+                this.dataNasc.equals(a.getDataNasc()) && this.nif.equals(a.getNif()); //falta historico
     }
     
     public String toString() {
-        return "email: " + getEmail() + " nome: " + getNome() + "\npassword: " + getPassword() + " morada: " + getMorada() + "\ndata de nascimento: " + getDataNasc() + "\nhist: " + getHistorico();
+        return "Nif: " + this.nif +" email: " + getEmail() + " nome: " + getNome() + "\npassword: " + getPassword() + " morada: " + getMorada() + "\ndata de nascimento: " + getDataNasc() + "\nhist: " + getHistorico();
     }
 }

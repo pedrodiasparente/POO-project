@@ -11,31 +11,23 @@ public class Cliente extends Atores
 {
     private double posX;
     private double posY;
-    private String id;
     
     public Cliente(){
         super();
         this.posX = 0;
         this.posY = 0;
-        this.id = "";
     }
     
-    public Cliente(String email, String password, String nome, String morada, LocalDate dataNasc, double posX, double posY, Set<DadosAluguer> historico, String id){
-        super(email,password,nome,morada, dataNasc, historico);
+    public Cliente(String email, String password, String nome, String morada, LocalDate dataNasc, double posX, double posY, Set<DadosAluguer> historico, String nif){
+        super(email,password,nome,morada, dataNasc, historico, nif);
         this.posX = posX;
         this.posY = posY;
-        this.id = id;
     }
     
     public Cliente(Cliente c){
         super(c);
         this.posX = c.getPosX();
         this.posY = c.getPosY();
-        this.id = c.getId();
-    }
-    
-    public String getId() {
-        return this.id;
     }
     
     public double getPosX() {
@@ -44,10 +36,6 @@ public class Cliente extends Atores
     
     public double getPosY() {
         return this.posY;
-    }
-    
-    public void setId(String id) {
-        this.id = id;
     }
     
     public void setPosX(double x) {
@@ -66,11 +54,11 @@ public class Cliente extends Atores
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        Cliente a = (Cliente) obj;
-       return super.equals(obj) && this.posX == a.getPosX() && this.posY == a.getPosY() && this.id.equals(a.getId());
+       return super.equals(obj) && this.posX == a.getPosX() && this.posY == a.getPosY();
     }
     
     public String toString(){
-        return "Id: " + this.id + " posx: " + this.posX + " psy: " + this.posY + "\n" + super.toString();
+        return "Posx: " + this.posX + " psy: " + this.posY + "\n" + super.toString();
     }
     
     public Viatura solicitaCarroMaisPerto(Sistema s){
@@ -124,13 +112,13 @@ public class Cliente extends Atores
         return ve;
     }
  
-    public Viatura solicitaCarroEspecifico(Sistema s, String matricula){               
+    public Viatura solicitaCarroEspecifico(Sistema s, String matricula){//nao sei se e melhor comparar por matricula ou viatura em si               
         Viatura ve = new Viatura();
             
         for(Viatura v : s.getViaturas()){            
                         
-            if (v.getMatricula().equals(matricula)){
-              ve = v;
+            if (v.getMatricula().equals(matricula)){//nao sei se e melhor comparar por matricula ou viatura em si
+              ve = v;//
             }     
         }
         return ve;

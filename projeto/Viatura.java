@@ -21,7 +21,6 @@ public class Viatura implements Comparable<Viatura>
     private double combustivel;
     private String marca;
     private String matricula;
-    private int estado; //0-livre 1-usado
     
     public Viatura(){
         this.vMedia = 0;
@@ -35,10 +34,9 @@ public class Viatura implements Comparable<Viatura>
         this.combustivel = 0;
         this.marca = "";
         this.matricula = "00-00-00";
-        this.estado = 0;
     }
     
-    public Viatura(double vmedia, double preco, double consumo, Set<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula, int estado){ 
+    public Viatura(double vmedia, double preco, double consumo, Set<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula){ 
         this.vMedia = vmedia;
         this.preco = preco;
         this.consumo = consumo;
@@ -50,7 +48,6 @@ public class Viatura implements Comparable<Viatura>
         this.combustivel = combustivel;
         this.marca = marca;
         this.matricula = matricula;
-        this.estado = estado;
     }
     
     public Viatura(Viatura v){
@@ -65,7 +62,6 @@ public class Viatura implements Comparable<Viatura>
         this.combustivel = v.getCombustivel();
         this.marca = v.getMarca();
         this.matricula = v.getMatricula();
-        this.estado = v.getEstado();
     }
     
     public int compareTo(Viatura a) {
@@ -76,10 +72,6 @@ public class Viatura implements Comparable<Viatura>
         else if (res > 0) res = 1;
         else res = 0;
         return res;
-    }
-    
-    public int getEstado(){
-        return this.estado;
     }
     
     public double getVMedia(){
@@ -129,10 +121,6 @@ public class Viatura implements Comparable<Viatura>
     
     public String getMatricula(){
         return this.matricula;
-    }
-    
-    public void setEstado(int e){
-        this.estado = e;
     }
     
     public void setVMedia(double v){
@@ -192,24 +180,17 @@ public class Viatura implements Comparable<Viatura>
               this.consumo == v.getConsumo() && this.posX == v.getPosX() && this.posY == v.getPosY() &&
               this.autonomia == v.getAutonomia() && this.classificacao == v.getClassificacao() && 
               this.combustivel == v.getCombustivel() && this.marca.equals(v.getMarca()) &&
-              this.matricula.equals(v.getMatricula()) && this.estado == v.getEstado(); //falta historico
+              this.matricula.equals(v.getMatricula()); //falta historico
     }
     
     public String toString() {
-        return "VelocMedia: " + getVMedia() + " Preco: " + getPreco() + " Consumo: " + getConsumo() + "\nClassificacao: " + getClassificacao() + " PosX: " + getPosX() + " PosY: " + getPosY() + "\nAutonomia: " + getAutonomia() + " Combustivel: " + getCombustivel() + "\nMarca: " + getMarca() + " Matricula: " + getMatricula() + "\nHistorico: " + getHistorico() + "Estado:" + getEstado();
+        return "VelocMedia: " + getVMedia() + " Preco: " + getPreco() + " Consumo: " + getConsumo() + "\nClassificacao: " + getClassificacao() + " PosX: " + getPosX() + " PosY: " + getPosY() + "\nAutonomia: " + getAutonomia() + " Combustivel: " + getCombustivel() + "\nMarca: " + getMarca() + " Matricula: " + getMatricula() + "\nHistorico: " + getHistorico();
     }
     
-    public void sinalizaVeiculo(int estado){
-        setEstado(estado);
+    public Viatura clone() {
+        return new Viatura(this);
     }
-    
-    public void abastecerVeiculo(double quantidade){
-        this.combustivel += quantidade;
-    }
-    
-    public void alteraPrecoKm(double preco){
-        setPreco(preco);
-    }
+
     
     //falta registar preço de viagens e responder a pedidos de alguguer
 }
