@@ -14,21 +14,18 @@ public class DadosAluguer implements Comparable<DadosAluguer>
     private String nifProp;
     private String nifClient;
     private double preco;
-    private double classificacao;
     
     public DadosAluguer(){
         this.viatura = new Viatura();
         this.nifProp = "";
         this.nifClient = "";
-        this.classificacao = 0;
         this.preco = 0;
     }
     
-    public DadosAluguer(Viatura v, String p, String c, double ca, double preco){
+    public DadosAluguer(Viatura v, String p, String c, double preco){
         this.viatura = v;
         this.nifProp = p;
         this.nifClient = c;
-        this.classificacao = ca;
         this.preco = preco;
     }
     
@@ -36,15 +33,14 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         this.viatura = d.getViatura();
         this.nifProp = d.getProprietario();
         this.nifClient = d.getCliente();
-        this.classificacao = d.getClassificacao();
         this.preco = d.getPreco();
     }
     
     public int compareTo(DadosAluguer a) {
-        double classificacao = a.getClassificacao();
+        double preco = a.getPreco();
         int res;
         
-        if(this.classificacao <= classificacao) res = -1;
+        if(this.preco <= preco) res = -1;
         else res = 1;
         return res;
     }
@@ -65,10 +61,6 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         return this.nifClient;
     }
     
-    public double getClassificacao(){
-        return this.classificacao;
-    }
-    
     public void setViatura(Viatura v){
         this.viatura = v;
     }
@@ -81,22 +73,18 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         this.nifProp = p;
     }
     
-    public void setClassificacao(int c){
-        this.classificacao = c;
-    }
-    
     public DadosAluguer clone() {
         return new DadosAluguer(this);
     }
     
     public String toString() {
-        return "Proprietario: " + getProprietario() + " Cliente: " + getCliente() + " Viatura: " + getViatura().getMatricula() + " Classificacao: " + getClassificacao();
+        return "Proprietario: " + getProprietario() + " Cliente: " + getCliente() + " Viatura: " + getViatura().getMatricula();
     }
     
     public boolean equals(Object obj) {
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        DadosAluguer a = (DadosAluguer) obj;
-       return this.classificacao == a.getClassificacao() && this.nifClient.equals(a.getCliente()) && this.viatura.equals(a.getViatura()) && this.nifProp.equals(getProprietario());
+       return this.nifClient.equals(a.getCliente()) && this.viatura.equals(a.getViatura()) && this.nifProp.equals(getProprietario());
     }
 }

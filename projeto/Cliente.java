@@ -61,33 +61,37 @@ public class Cliente extends Atores
         return "Posx: " + this.posX + " psy: " + this.posY + "\n" + super.toString();
     }
     
-    public Viatura solicitaCarroMaisPerto(Sistema s){
+    public Viatura solicitaCarroMaisPerto(Sistema s, double xDest, double yDest){
         
         double min = 999999999;
-        double dist,x,y;
+        double dist,x,y, distDest;
         Viatura ve = new Viatura();
+        ve = null;
             
         for(Viatura v : s.getViaturas()){
             x = v.getPosX();
             y = v.getPosY();
             dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);
-            if (min > dist){
+            distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
+            if (min > dist && distDest >= v.getAutonomia()){
                 min = dist;
                 ve = v;
             }     
-     }
-    return ve;
+        }   
+        return ve;
     }
    
-    public Viatura solicitaCarroMaisBarato(Sistema s){
+    public Viatura solicitaCarroMaisBarato(Sistema s, double xDest, double yDest){
               
-        double min = 999999999, preco;        
+        double min = 999999999;
+        double preco, dist;        
         Viatura ve = new Viatura();
-            
+        ve = null; 
+        
         for(Viatura v : s.getViaturas()){
             preco = v.getPreco();
-                        
-            if (min > preco){
+            dist= Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);            
+            if (min > preco && dist >= v.getAutonomia()){
                 min = preco;
                 ve = v;
             }     
@@ -95,16 +99,20 @@ public class Cliente extends Atores
         return ve;
     }
 
-    public Viatura solicitaCarroDistPreco(Sistema s, double distancia){    
-        double min = 999999999, preco, dist, x, y;     
+    public Viatura solicitaCarroDistPreco(Sistema s, double distancia, double xDest, double yDest){    
+        double min = 999999999;
+        double preco, dist, x, y, distDest;     
         Viatura ve = new Viatura();
+        
+        ve = null;
             
         for(Viatura v : s.getViaturas()){
             x = v.getPosX();
             y = v.getPosY();
             preco = v.getPreco();
-            dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);            
-            if (min > preco && dist <= distancia){
+            dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);
+            distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
+            if (min > preco && dist <= distancia && distDest > v.getAutonomia()){
                 min = preco;
                 ve = v;
             }     
@@ -112,24 +120,28 @@ public class Cliente extends Atores
         return ve;
     }
  
-    public Viatura solicitaCarroEspecifico(Sistema s, String matricula){//nao sei se e melhor comparar por matricula ou viatura em si               
+    public Viatura solicitaCarroEspecifico(Sistema s, String matricula, double xDest, double yDest){             
+        double distDest;
         Viatura ve = new Viatura();
+        ve = null;
             
         for(Viatura v : s.getViaturas()){            
-                        
-            if (v.getMatricula().equals(matricula)){//nao sei se e melhor comparar por matricula ou viatura em si
+            distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
+            if (v.getMatricula().equals(matricula) && distDest > v.getAutonomia()){
               ve = v;//
             }     
         }
         return ve;
     }
     
-    public Viatura solicitaCarroAutonomia(Sistema s, double autonomia){
+    public Viatura solicitaCarroAutonomia(Sistema s, double autonomia, double xDest, double yDest){
+        double distDest;
         Viatura ve = new Viatura();
+        ve = null;
         
         for(Viatura v : s.getViaturas()){
-            
-            if (v.getAutonomia() == autonomia){
+            distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
+            if (v.getAutonomia() == autonomia && distDest > v.getAutonomia()){
                 ve = v;
             }
             

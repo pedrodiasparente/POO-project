@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=CarroHibrido
+comment0.text=\n\ Write\ a\ description\ of\ class\ CarroGas\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=CarroHibrido()
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ CarroGas\n
+comment2.params=vmedia\ preco\ consumo\ hist\ posx\ posy\ classi\ autonomia\ combustivel\ marca\ matricula\ estado
+comment2.target=CarroHibrido(double,\ double,\ double,\ java.util.Set,\ double,\ double,\ double,\ double,\ double,\ java.lang.String,\ java.lang.String,\ int)
+comment3.params=c
+comment3.target=CarroHibrido(CarroHibrido)
+comment4.params=
+comment4.target=CarroHibrido\ clone()
+numComments=5
