@@ -58,7 +58,7 @@ public class Cliente extends Atores
     }
     
     public String toString(){
-        return "Posx: " + this.posX + " psy: " + this.posY + "\n" + super.toString();
+        return "PosX: " + this.posX + " PosY: " + this.posY + "\n" + super.toString();
     }
     
     public Viatura solicitaCarroMaisPerto(Sistema s, double xDest, double yDest){

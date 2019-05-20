@@ -133,6 +133,6 @@ public class Atores implements Comparable<Atores>{
     }
     
     public String toString() {
-        return "Nif: " + this.nif +" email: " + getEmail() + " nome: " + getNome() + "\npassword: " + getPassword() + " morada: " + getMorada() + "\ndata de nascimento: " + getDataNasc() + "\nhist: " + getHistorico();
+        return "Nif: " + this.getNif() +" email: " + getEmail() + " nome: " + getNome() + "\npassword: " + getPassword() + " morada: " + getMorada() + "\ndata de nascimento: " + getDataNasc() + "\nhist: " + getHistorico();
     }
 }
