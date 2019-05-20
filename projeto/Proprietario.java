@@ -9,7 +9,7 @@ import java.time.LocalDate;
  */
 public class Proprietario extends Atores
 {
-    private Set<Viatura> viaturaList;
+    private Map<String ,Viatura> viaturaList;
     private double classificacao;
     
     /**
@@ -17,11 +17,11 @@ public class Proprietario extends Atores
      */
     public Proprietario(){
         super();
-        this.viaturaList = new TreeSet<>();
+        this.viaturaList = new HashMap<>();
         this.classificacao = 0;
     }
     
-    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, double classificacao, Set<Viatura> viaturaList, String nif) {
+    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, double classificacao, Map<String,Viatura> viaturaList, String nif) {
         super(email,password,nome,morada, dataNasc, historico, nif);
         this.viaturaList = viaturaList;
         this.classificacao = classificacao;
@@ -33,30 +33,45 @@ public class Proprietario extends Atores
         this.classificacao = p.getClassificacao();
     }
     
-    public Set<Viatura> getViaturaList() {
-        Set<Viatura> viaturaList = new TreeSet<>();
+    public Map<String, Viatura> getViaturaList() {
+        Map<String, Viatura> viaturaList = new HashMap<>();
         
-        for(Viatura s : this.viaturaList){
-            viaturaList.add(s);
+        for(Viatura v : this.viaturaList.values()){
+            viaturaList.put(v.getMatricula(), v.clone());
         }
         return viaturaList;
+    }
+    
+    public Viatura getSingleViatura(String matricula){//ISTO E MM ESTUPIDOOO MUDAR PARA HASHMAP
+        Viatura ve = new Viatura();
+        ve = null;
+            
+        for(Viatura v : this.getViaturaList().values()){
+            if (v.getMatricula().equals(matricula)){
+              ve = v.clone();
+            }     
+        }
+        return ve;
     }
     
     public double getClassificacao(){
         return this.classificacao;
     }
     
-    public void setViaturaList(Set<Viatura> l){
-        this.viaturaList = new TreeSet<>();
-        viaturaList.forEach(s -> {this.viaturaList.add(s);});
+    public void setViaturaList(Map<String, Viatura> l){
+        this.viaturaList = new HashMap<>();
+        for(Viatura v : l.values()){
+            this.viaturaList.put(v.getMatricula(), v.clone());   
+        }
     }
             
     public void setClassificacao(int c){
         this.classificacao = c;
     }
     
-    public void addViatura(Viatura viatura) {
-        this.viaturaList.add(viatura);
+    public void addViatura(Viatura viatura, Sistema s){
+        this.viaturaList.put(viatura.getMatricula(), viatura.clone());
+        s.addViatura(viatura.clone());
     }
     
     public Proprietario clone() {
@@ -76,7 +91,7 @@ public class Proprietario extends Atores
     
         public void abastecerVeiculo(double quantidade, Viatura v){
         double combustivel;
-        for(Viatura s : this.viaturaList){
+        for(Viatura s : this.viaturaList.values()){
             if (s.equals(v)){
                 combustivel = s.getCombustivel();
                 s.setCombustivel(combustivel + quantidade);
@@ -86,7 +101,7 @@ public class Proprietario extends Atores
     }
     
     public void alteraPrecoKm(double preco, Viatura v){
-        for(Viatura s : this.viaturaList){
+        for(Viatura s : this.viaturaList.values()){
             if (s.equals(v)){
                 v.setPreco(preco);
                 break;

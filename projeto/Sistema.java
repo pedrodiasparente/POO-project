@@ -1,5 +1,5 @@
-import java.util.TreeSet;
-import java.util.Set;
+import java.util.*;
+import java.util.Map;
 
 /**
  * Escreva a descrição da classe Sistema aqui.
@@ -9,19 +9,19 @@ import java.util.Set;
  */
 public class Sistema
 {
-    private Set<Cliente> clientes;
-    private Set<Proprietario> proprietarios;
-    private Set<Viatura> viaturas;
-    private Set<DadosAluguer> totHist;
+    private Map<String, Cliente> clientes;
+    private Map<String, Proprietario> proprietarios;
+    private Map<String, Viatura> viaturas;
+    private Map<Double, DadosAluguer> totHist;
     
     public Sistema(){
-        this.clientes = new TreeSet<>();
-        this.proprietarios = new TreeSet<>();
-        this.viaturas = new TreeSet<>();
-        this.totHist = new TreeSet<>();
+        this.clientes = new HashMap<>();
+        this.proprietarios = new HashMap<>();
+        this.viaturas = new HashMap<>();
+        this.totHist = new HashMap<>();
     }
     
-    public Sistema(Set<Cliente> c, Set<Proprietario> p, Set<Viatura> v, Set<DadosAluguer> d){
+    public Sistema(Map<String, Cliente> c, Map<String, Proprietario> p, Map<String, Viatura> v, Map<Double, DadosAluguer> d){
         setClientes(c);
         setProprietarios(p);
         setViaturas(v);
@@ -35,80 +35,89 @@ public class Sistema
         this.totHist = s.getTotHist();
     }
     
-    public Set<Cliente> getClientes(){
-        Set<Cliente> res = new TreeSet<>();
+    public Map<String, Cliente> getClientes(){
+        Map<String, Cliente> res = new HashMap<>();
         
-        for(Cliente c : this.clientes){
-            res.add(c);
+        for(Cliente c : this.clientes.values()){
+            res.put(c.getNif(), c.clone());
         }
         
         return res;
     }
     
-    public Set<Proprietario> getProprietarios(){
-        Set<Proprietario> res = new TreeSet<>();
+    public Map<String, Proprietario> getProprietarios(){
+        Map<String, Proprietario> res = new HashMap<>();
         
-        for(Proprietario p : this.proprietarios){
-            res.add(p);
+        for(Proprietario p : this.proprietarios.values()){
+            res.put(p.getNif(), p.clone());
         }
         
         return res;
     }
     
-    public Set<Viatura> getViaturas(){
-        Set<Viatura> res = new TreeSet<>();
+    public Map<String, Viatura> getViaturas(){
+        Map<String, Viatura> res = new HashMap<>();
         
-        for(Viatura v : this.viaturas){
-            res.add(v);
+        for(Viatura v : this.viaturas.values()){
+            res.put(v.getMatricula(), v.clone());
         }
         
         return res;
     }
     
-    public Set<DadosAluguer> getTotHist(){
-        Set<DadosAluguer> res = new TreeSet<>();
+    public Map<Double, DadosAluguer> getTotHist(){
+        Map<Double, DadosAluguer> res = new HashMap<>();
         
-        for(DadosAluguer d : this.totHist){
-            res.add(d);
+        for(DadosAluguer d : this.totHist.values()){
+            res.put(d.getPreco(), d);
         }
         
         return res;
     }
     
-    public void setClientes(Set<Cliente> c){
-        this.clientes = new TreeSet<>();
-        clientes.forEach(s -> {this.clientes.add(s);});
+    public void setClientes(Map<String, Cliente> c){
+        this.clientes = new HashMap<>();
+        for(Cliente c1 : c.values()){
+            this.clientes.put(c1.getNif(), c1.clone());
+        }
     }
     
-    public void setProprietarios(Set<Proprietario> p){
-        this.proprietarios = new TreeSet<>();
-        proprietarios.forEach(s -> {this.proprietarios.add(s);});
+    public void setProprietarios(Map<String, Proprietario> p){
+        this.proprietarios = new HashMap<>();
+        for(Proprietario p1 : p.values()){
+            this.proprietarios.put(p1.getNif(), p1.clone());
+        }
     }
     
-    public void setViaturas(Set<Viatura> v){
-        this.viaturas = new TreeSet<>();
-        viaturas.forEach(s -> {this.viaturas.add(s);});
+    public void setViaturas(Map<String, Viatura> v){
+        this.viaturas = new HashMap<>();
+        for(Viatura v1 : v.values()){
+            this.viaturas.put(v1.getMatricula(), v1.clone());
+        }
     }
     
-    public void setDados(Set<DadosAluguer> d){
-        this.totHist = new TreeSet<>();
-        totHist.forEach(s -> {this.totHist.add(s);});
+    public void setDados(Map<Double, DadosAluguer> d){
+        this.totHist = new HashMap<>();
+        for(DadosAluguer d1 : d.values()){
+            this.totHist.put(d1.getPreco(), d1);
+        }
+        
     }
     
     public void addCliente(Cliente clientes) {
-        this.clientes.add(clientes);
+        this.clientes.put(clientes.getNif(), clientes.clone());
     }
     
     public void addProprietario(Proprietario prop) {
-        this.proprietarios.add(prop);
+        this.proprietarios.put(prop.getNif(), prop.clone());
     }
     
     public void addViatura(Viatura viatura) {
-        this.viaturas.add(viatura);
+        this.viaturas.put(viatura.getMatricula(), viatura.clone());
     }
     
     public void addAluguer(DadosAluguer aluguer) {
-        this.totHist.add(aluguer);
+        this.totHist.put(aluguer.getPreco(), aluguer.clone());
     }
     
     public Sistema clone(){

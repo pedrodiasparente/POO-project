@@ -68,7 +68,7 @@ public class Cliente extends Atores
         Viatura ve = new Viatura();
         ve = null;
             
-        for(Viatura v : s.getViaturas()){
+        for(Viatura v : s.getViaturas().values()){
             x = v.getPosX();
             y = v.getPosY();
             dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);
@@ -88,7 +88,7 @@ public class Cliente extends Atores
         Viatura ve = new Viatura();
         ve = null; 
         
-        for(Viatura v : s.getViaturas()){
+        for(Viatura v : s.getViaturas().values()){
             preco = v.getPreco();
             dist= Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);            
             if (min > preco && dist >= v.getAutonomia()){
@@ -106,7 +106,7 @@ public class Cliente extends Atores
         
         ve = null;
             
-        for(Viatura v : s.getViaturas()){
+        for(Viatura v : s.getViaturas().values()){
             x = v.getPosX();
             y = v.getPosY();
             preco = v.getPreco();
@@ -125,7 +125,7 @@ public class Cliente extends Atores
         Viatura ve = new Viatura();
         ve = null;
             
-        for(Viatura v : s.getViaturas()){            
+        for(Viatura v : s.getViaturas().values()){            
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
             if (v.getMatricula().equals(matricula) && distDest > v.getAutonomia()){
               ve = v;//
@@ -139,7 +139,7 @@ public class Cliente extends Atores
         Viatura ve = new Viatura();
         ve = null;
         
-        for(Viatura v : s.getViaturas()){
+        for(Viatura v : s.getViaturas().values()){
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
             if (v.getAutonomia() == autonomia && distDest > v.getAutonomia()){
                 ve = v;
