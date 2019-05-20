@@ -46,7 +46,7 @@ public class main
         aluguer.setCliente(cliente.getNif());
         aluguer.setViatura(viatura);
         aluguer.setProprietario(proprietario.getNif());
-        aluguer.setClassificacao(100);
+
         
         DadosAluguer aluguerClone = aluguer.clone();
         Cliente clienteClone = cliente.clone();
@@ -59,7 +59,7 @@ public class main
         viatura.addAluguer(aluguerClone);
         proprietario.addAluguer(aluguer);
         proprietario.addAluguer(aluguerClone);
-        proprietario.addViatura(viatura);
+        proprietario.addViatura(viatura, systemLogs);
         systemLogs.addCliente(cliente);
         systemLogs.addViatura(viatura);
         systemLogs.addProprietario(proprietario);
