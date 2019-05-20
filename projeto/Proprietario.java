@@ -94,7 +94,7 @@ public class Proprietario extends Atores
         }
     }
     
-    public void registaPreco(Aluguer a, double classificacao){
+    public void registaAluguer(Aluguer a){
         double preco;
         double x,y;
         x = a.getPosX();
@@ -103,7 +103,7 @@ public class Proprietario extends Atores
         
         preco = dist * a.getViatura().getPreco();
         
-        DadosAluguer d = new DadosAluguer(a.getViatura(), this.getNif(),a.getNif(),preco,classificacao);
+        DadosAluguer d = new DadosAluguer(a.getViatura(), this.getNif(),a.getNif(),preco);
         
         addAluguer(d);
         a.getViatura().addAluguer(d);
