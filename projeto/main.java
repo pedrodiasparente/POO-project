@@ -16,7 +16,7 @@ public class main
         DadosAluguer aluguer = new DadosAluguer();
         Sistema systemLogs = new Sistema();
         
-        cliente.setId("21312");
+        cliente.setNif("21312");
         cliente.setEmail("randomemail@gmail.com");
         cliente.setNome("Manel");
         cliente.setPassword("ponteheyfell");
@@ -43,9 +43,9 @@ public class main
         proprietario.setMorada("ovos mexidos street");
         proprietario.setDataNasc(date);
         
-        aluguer.setCliente(cliente);
+        aluguer.setCliente(cliente.getNif());
         aluguer.setViatura(viatura);
-        aluguer.setProprietario(proprietario);
+        aluguer.setProprietario(proprietario.getNif());
         aluguer.setClassificacao(100);
         
         DadosAluguer aluguerClone = aluguer.clone();
