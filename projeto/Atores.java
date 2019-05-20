@@ -13,7 +13,7 @@ public class Atores implements Comparable<Atores>{
     private String password;
     private String morada;
     private LocalDate dataNasc;
-    private Set<DadosAluguer> historico;
+    private Map<Double, DadosAluguer> historico;
     private String nif;
     
     public Atores(){
@@ -22,11 +22,11 @@ public class Atores implements Comparable<Atores>{
         this.password = "";
         this.morada = "";
         this.dataNasc.of(1,1,1);
-        this.historico = new TreeSet<DadosAluguer>();
+        this.historico = new HashMap<Double, DadosAluguer>();
         this.nif = "";
     }
     
-    public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, String nif){
+    public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, Map<Double, DadosAluguer> historico, String nif){
         this.email = email;
         this.nome = nome;
         this.password = password;
@@ -70,11 +70,11 @@ public class Atores implements Comparable<Atores>{
         return this.dataNasc;
     }
     
-    public Set<DadosAluguer> getHistorico(){
-        Set<DadosAluguer> hist = new TreeSet<>();
+    public Map<Double, DadosAluguer> getHistorico(){
+        Map<Double, DadosAluguer> hist = new HashMap<>();
         
-        for(DadosAluguer s : this.historico){
-            hist.add(s);
+        for(DadosAluguer d : this.historico.values()){
+            hist.put(d.getPreco(), d.clone());
         }
         return hist;
     }
@@ -103,9 +103,11 @@ public class Atores implements Comparable<Atores>{
         this.dataNasc = data;
     }
     
-    public void setHistorico(Set<DadosAluguer> l){
-        this.historico = new TreeSet<>();
-        historico.forEach(s -> {this.historico.add(s);});
+    public void setHistorico(Map<Double, DadosAluguer> l){
+        this.historico = new HashMap<>();
+        for(DadosAluguer d : l.values()){
+            this.historico.put(d.getPreco(), d.clone());
+        }
     }
     
     public int compareTo(Atores a) {
@@ -118,7 +120,7 @@ public class Atores implements Comparable<Atores>{
     }
     
     public void addAluguer(DadosAluguer aluguer) {
-        this.historico.add(aluguer);
+        this.historico.put(aluguer.getPreco(), aluguer.clone());
     }
     
     public boolean equals(Object obj) {

@@ -13,7 +13,7 @@ public class Viatura implements Comparable<Viatura>
     private double vMedia;
     private double preco;
     private double consumo;
-    private Set<DadosAluguer> historico;
+    private Map<Double, DadosAluguer> historico;
     private double classificacao;
     private double posX;
     private double posY;
@@ -26,7 +26,7 @@ public class Viatura implements Comparable<Viatura>
         this.vMedia = 0;
         this.preco = 0;
         this.consumo = 0;
-        this.historico = new TreeSet<>();
+        this.historico = new HashMap<>();
         this.classificacao = 0;
         this.posX = 0;
         this.posY = 0;
@@ -36,7 +36,7 @@ public class Viatura implements Comparable<Viatura>
         this.matricula = "00-00-00";
     }
     
-    public Viatura(double vmedia, double preco, double consumo, Set<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula){ 
+    public Viatura(double vmedia, double preco, double consumo, Map<Double, DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula){ 
         this.vMedia = vmedia;
         this.preco = preco;
         this.consumo = consumo;
@@ -86,11 +86,11 @@ public class Viatura implements Comparable<Viatura>
         return this.consumo;
     }
     
-    public Set<DadosAluguer> getHistorico(){
-        Set<DadosAluguer> hist = new TreeSet<>();
+    public Map<Double, DadosAluguer> getHistorico(){
+        Map<Double, DadosAluguer> hist = new HashMap<>();
         
-        for(DadosAluguer s : this.historico){
-            hist.add(s);
+        for(DadosAluguer d : this.historico.values()){
+            hist.put(d.getPreco(), d.clone());
         }
         return hist;
     }
@@ -131,13 +131,15 @@ public class Viatura implements Comparable<Viatura>
         this.preco = p;
     }
     
-    public void setHistorico(Set<DadosAluguer> l){
-        this.historico = new TreeSet<>();
-        historico.forEach(s -> {this.historico.add(s);});
+    public void setHistorico(Map<Double, DadosAluguer> l){
+        this.historico = new HashMap<>();
+        for(DadosAluguer d : l.values()){
+            this.historico.put(d.getPreco(), d.clone());
+        }
     }
     
     public void addAluguer(DadosAluguer aluguer) {
-        this.historico.add(aluguer);
+        this.historico.put(aluguer.getPreco(), aluguer.clone());
     }
     
     public void setConsumo(double c){

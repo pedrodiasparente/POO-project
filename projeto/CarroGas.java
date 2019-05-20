@@ -18,7 +18,7 @@ public class CarroGas extends Viatura
         super();
     }
     
-    public CarroGas(double vmedia, double preco, double consumo, Set<DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula)
+    public CarroGas(double vmedia, double preco, double consumo, Map<Double, DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula)
     {
         super(vmedia, preco, consumo, hist, posx, posy, classi, autonomia, combustivel, marca, matricula);
     }

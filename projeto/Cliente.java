@@ -18,7 +18,7 @@ public class Cliente extends Atores
         this.posY = 0;
     }
     
-    public Cliente(String email, String password, String nome, String morada, LocalDate dataNasc, double posX, double posY, Set<DadosAluguer> historico, String nif){
+    public Cliente(String email, String password, String nome, String morada, LocalDate dataNasc, double posX, double posY, Map<Double, DadosAluguer> historico, String nif){
         super(email,password,nome,morada, dataNasc, historico, nif);
         this.posX = posX;
         this.posY = posY;

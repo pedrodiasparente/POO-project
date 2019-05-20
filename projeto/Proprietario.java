@@ -21,7 +21,7 @@ public class Proprietario extends Atores
         this.classificacao = 0;
     }
     
-    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Set<DadosAluguer> historico, double classificacao, Map<String,Viatura> viaturaList, String nif) {
+    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Map<Double, DadosAluguer> historico, double classificacao, Map<String,Viatura> viaturaList, String nif) {
         super(email,password,nome,morada, dataNasc, historico, nif);
         this.viaturaList = viaturaList;
         this.classificacao = classificacao;
