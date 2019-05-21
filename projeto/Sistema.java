@@ -112,6 +112,8 @@ public class Sistema
         this.proprietarios.put(prop.getNif(), prop.clone());
     }
     
+    
+    
     public void addViatura(Viatura viatura) {
         this.viaturas.put(viatura.getMatricula(), viatura.clone());
     }
@@ -128,7 +130,40 @@ public class Sistema
         return "Sistema =>\nClientes: " + getClientes() + "\nProprietarios: " + getProprietarios() + "\nViaturas: " + getViaturas() + "\nTotalHistory: " + getTotHist();
     }
     
+    public void updateSingleViatura(Viatura newViatura){
+        Proprietario prop = new Proprietario();
+
+        for(Proprietario p1 : this.proprietarios.values()){
+            if(p1.getViaturas().get(newViatura.getMatricula()) != null){
+                prop = p1.clone();
+            }
+        }
+        
+        prop.addViatura(newViatura, this);
+        this.proprietarios.put(prop.getNif(), prop);
+        
+        return;
+    }
     
-    
+    public void updateHistoricos(DadosAluguer aluguer){
+        this.addAluguer(aluguer.clone());
+        
+        for(Proprietario p : this.proprietarios.values()){
+           if(p.getNif().equals(aluguer.getProprietario())){
+               p.addAluguer(aluguer.clone());
+           }
+        }
+        for(Viatura v : this.viaturas.values()){
+           if(v.getMatricula().equals(aluguer.getViatura())){
+               v.addAluguer(aluguer.clone());
+           }
+        }
+        for(Cliente c : this.clientes.values()){
+           if(c.getNif().equals(aluguer.getCliente())){
+               c.addAluguer(aluguer.clone());
+           }
+        }
+        
+    }
     
 }

@@ -10,19 +10,19 @@ import java.util.ArrayList;
  */
 public class DadosAluguer implements Comparable<DadosAluguer>
 {
-    private Viatura viatura;
+    private String viatura;
     private String nifProp;
     private String nifClient;
     private double preco;
     
     public DadosAluguer(){
-        this.viatura = new Viatura();
+        this.viatura = "";
         this.nifProp = "";
         this.nifClient = "";
         this.preco = 0;
     }
     
-    public DadosAluguer(Viatura v, String p, String c, double preco){
+    public DadosAluguer(String v, String p, String c, double preco){
         this.viatura = v;
         this.nifProp = p;
         this.nifClient = c;
@@ -49,7 +49,7 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         return this.preco;
     }
     
-    public Viatura getViatura(){
+    public String getViatura(){
         return this.viatura;
     }
     
@@ -61,7 +61,7 @@ public class DadosAluguer implements Comparable<DadosAluguer>
         return this.nifClient;
     }
     
-    public void setViatura(Viatura v){
+    public void setViatura(String v){
         this.viatura = v;
     }
     
@@ -78,7 +78,7 @@ public class DadosAluguer implements Comparable<DadosAluguer>
     }
     
     public String toString() {
-        return "Proprietario: " + getProprietario() + " Cliente: " + getCliente() + " Viatura: " + getViatura().getMatricula();
+        return "Preco: " + this.getPreco() + "Proprietario: " + this.getProprietario() + " Cliente: " + this.getCliente() + " Viatura: " + this.getViatura();
     }
     
     public boolean equals(Object obj) {

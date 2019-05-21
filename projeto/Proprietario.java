@@ -29,11 +29,11 @@ public class Proprietario extends Atores
     
     public Proprietario(Proprietario p){
         super(p);
-        this.viaturaList = p.getViaturaList();
+        this.viaturaList = p.getViaturas();
         this.classificacao = p.getClassificacao();
     }
     
-    public Map<String, Viatura> getViaturaList() {
+    public Map<String, Viatura> getViaturas() {
         Map<String, Viatura> viaturaList = new HashMap<>();
         
         for(Viatura v : this.viaturaList.values()){
@@ -42,23 +42,11 @@ public class Proprietario extends Atores
         return viaturaList;
     }
     
-    public Viatura getSingleViatura(String matricula){//ISTO E MM ESTUPIDOOO MUDAR PARA HASHMAP
-        Viatura ve = new Viatura();
-        ve = null;
-            
-        for(Viatura v : this.getViaturaList().values()){
-            if (v.getMatricula().equals(matricula)){
-              ve = v.clone();
-            }     
-        }
-        return ve;
-    }
-    
     public double getClassificacao(){
         return this.classificacao;
     }
     
-    public void setViaturaList(Map<String, Viatura> l){
+    public void setViaturas(Map<String, Viatura> l){
         this.viaturaList = new HashMap<>();
         for(Viatura v : l.values()){
             this.viaturaList.put(v.getMatricula(), v.clone());   
@@ -86,7 +74,7 @@ public class Proprietario extends Atores
     }
     
     public String toString(){
-        return super.toString() + "\nClassificacao " + getClassificacao() + " Viaturas: " + getViaturaList();
+        return super.toString() + "\nClassificacao " + getClassificacao() + " Viaturas: " + getViaturas();
     }
     
         public void abastecerVeiculo(double quantidade, Viatura v){
@@ -118,7 +106,7 @@ public class Proprietario extends Atores
         
         preco = dist * a.getViatura().getPreco();
         
-        DadosAluguer d = new DadosAluguer(a.getViatura(), this.getNif(),a.getNif(),preco);
+        DadosAluguer d = new DadosAluguer(a.getViatura().getMatricula(), this.getNif(),a.getNif(),preco);
         
         addAluguer(d);
         a.getViatura().addAluguer(d);

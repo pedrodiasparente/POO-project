@@ -61,7 +61,7 @@ public class Cliente extends Atores
         return "Posx: " + this.posX + " psy: " + this.posY + "\n" + super.toString();
     }
     
-    public Viatura solicitaCarroMaisPerto(Sistema s, double xDest, double yDest){
+    public Viatura solicitaCarroDist(Sistema s, double xDest, double yDest){
         
         double min = 999999999;
         double dist,x,y, distDest;
@@ -73,12 +73,44 @@ public class Cliente extends Atores
             y = v.getPosY();
             dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
-            if (min > dist && distDest >= v.getAutonomia()){
+            if (min > dist && distDest <= v.getAutonomia()){
                 min = dist;
-                ve = v;
+                ve = v.clone();
             }     
         }   
         return ve;
+    }
+    
+    public DadosAluguer alugaCarroDist(Sistema s, double xDest, double yDest){
+        double dist, preco, combustivel, autonomia;
+        Viatura viatura = new Viatura();
+        Proprietario prop = new Proprietario();
+        
+        viatura = solicitaCarroDist(s, xDest, yDest);
+        if(viatura == null) return null;
+        
+        dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
+        preco = dist * viatura.getPreco();
+        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
+        autonomia = combustivel / viatura.getConsumo();
+        viatura.setCombustivel(combustivel);
+        viatura.setAutonomia(autonomia);
+        viatura.setPosX(xDest);
+        viatura.setPosY(yDest);
+        
+        for(Proprietario p1 : s.getProprietarios().values()){
+            if(p1.getViaturas().get(viatura.getMatricula()) != null){
+                prop = p1.clone();
+            }
+        }
+        
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        
+        viatura.addAluguer(aluguer);
+        s.updateHistoricos(aluguer);
+        s.updateSingleViatura(viatura);
+        
+        return aluguer;
     }
    
     public Viatura solicitaCarroMaisBarato(Sistema s, double xDest, double yDest){
@@ -91,12 +123,44 @@ public class Cliente extends Atores
         for(Viatura v : s.getViaturas().values()){
             preco = v.getPreco();
             dist= Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);            
-            if (min > preco && dist >= v.getAutonomia()){
+            if (min > preco && dist <= v.getAutonomia()){
                 min = preco;
-                ve = v;
+                ve = v.clone();
             }     
         }
         return ve;
+    }
+    
+    public DadosAluguer alugaCarroMaisBarato(Sistema s, double xDest, double yDest){
+        double dist, preco, combustivel, autonomia;
+        Viatura viatura = new Viatura();
+        Proprietario prop = new Proprietario();
+        
+        viatura = solicitaCarroMaisBarato(s, xDest, yDest);
+        if(viatura == null) return null;
+        
+        dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
+        preco = dist * viatura.getPreco();
+        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
+        autonomia = combustivel / viatura.getConsumo();
+        viatura.setCombustivel(combustivel);
+        viatura.setAutonomia(autonomia);
+        viatura.setPosX(xDest);
+        viatura.setPosY(yDest);
+        
+        for(Proprietario p1 : s.getProprietarios().values()){
+            if(p1.getViaturas().get(viatura.getMatricula()) != null){
+                prop = p1.clone();
+            }
+        }
+        
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        
+        viatura.addAluguer(aluguer);
+        s.updateHistoricos(aluguer);
+        s.updateSingleViatura(viatura);
+        
+        return aluguer;
     }
 
     public Viatura solicitaCarroDistPreco(Sistema s, double distancia, double xDest, double yDest){    
@@ -112,12 +176,44 @@ public class Cliente extends Atores
             preco = v.getPreco();
             dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
-            if (min > preco && dist <= distancia && distDest > v.getAutonomia()){
+            if (min > preco && dist <= distancia && distDest <= v.getAutonomia()){
                 min = preco;
-                ve = v;
+                ve = v.clone();
             }     
         }
         return ve;
+    }
+    
+    public DadosAluguer alugaCarroDistPreco(Sistema s, double distancia, double xDest, double yDest){
+        double dist, preco, combustivel, autonomia;
+        Viatura viatura = new Viatura();
+        Proprietario prop = new Proprietario();
+        
+        viatura = solicitaCarroDistPreco(s, distancia, xDest, yDest);
+        if(viatura == null) return null;
+        
+        dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
+        preco = dist * viatura.getPreco();
+        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
+        autonomia = combustivel / viatura.getConsumo();
+        viatura.setCombustivel(combustivel);
+        viatura.setAutonomia(autonomia);
+        viatura.setPosX(xDest);
+        viatura.setPosY(yDest);
+        
+        for(Proprietario p1 : s.getProprietarios().values()){
+            if(p1.getViaturas().get(viatura.getMatricula()) != null){
+                prop = p1.clone();
+            }
+        }
+        
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        
+        viatura.addAluguer(aluguer);
+        s.updateHistoricos(aluguer);
+        s.updateSingleViatura(viatura);
+        
+        return aluguer;
     }
  
     public Viatura solicitaCarroEspecifico(Sistema s, String matricula, double xDest, double yDest){             
@@ -127,11 +223,43 @@ public class Cliente extends Atores
             
         for(Viatura v : s.getViaturas().values()){            
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
-            if (v.getMatricula().equals(matricula) && distDest > v.getAutonomia()){
-              ve = v;//
+            if (v.getMatricula().equals(matricula) && distDest <= v.getAutonomia()){
+              ve = v.clone();
             }     
         }
         return ve;
+    }
+    
+    public DadosAluguer alugaCarroEspecifico(Sistema s, String matricula, double xDest, double yDest){
+        double dist, preco, combustivel, autonomia;
+        Viatura viatura = new Viatura();
+        Proprietario prop = new Proprietario();
+        
+        viatura = solicitaCarroEspecifico(s, matricula, xDest, yDest);
+        if(viatura == null) return null;
+        
+        dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
+        preco = dist * viatura.getPreco();
+        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
+        autonomia = combustivel / viatura.getConsumo();
+        viatura.setCombustivel(combustivel);
+        viatura.setAutonomia(autonomia);
+        viatura.setPosX(xDest);
+        viatura.setPosY(yDest);
+        
+        for(Proprietario p1 : s.getProprietarios().values()){
+            if(p1.getViaturas().get(viatura.getMatricula()) != null){
+                prop = p1.clone();
+            }
+        }
+        
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        
+        viatura.addAluguer(aluguer);
+        s.updateHistoricos(aluguer);
+        s.updateSingleViatura(viatura);
+        
+        return aluguer;
     }
     
     public Viatura solicitaCarroAutonomia(Sistema s, double autonomia, double xDest, double yDest){
@@ -141,13 +269,45 @@ public class Cliente extends Atores
         
         for(Viatura v : s.getViaturas().values()){
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
-            if (v.getAutonomia() == autonomia && distDest > v.getAutonomia()){
-                ve = v;
+            if (v.getAutonomia() == autonomia && distDest <= v.getAutonomia()){
+                ve = v.clone();
             }
             
         }
         
         return ve;
     }
-                
+    
+    public DadosAluguer alugaCarroAutonomia(Sistema s, double checkautonomia, double xDest, double yDest){
+        double dist, preco, combustivel, autonomia;
+        Viatura viatura = new Viatura();
+        Proprietario prop = new Proprietario();
+        
+        viatura = solicitaCarroAutonomia(s, checkautonomia, xDest, yDest);
+        if(viatura == null) return null;
+        
+        dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
+        preco = dist * viatura.getPreco();
+        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
+        autonomia = combustivel / viatura.getConsumo();
+        viatura.setCombustivel(combustivel);
+        viatura.setAutonomia(autonomia);
+        viatura.setPosX(xDest);
+        viatura.setPosY(yDest);
+        
+        for(Proprietario p1 : s.getProprietarios().values()){
+            if(p1.getViaturas().get(viatura.getMatricula()) != null){
+                prop = p1.clone();
+            }
+        }
+        
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        
+        viatura.addAluguer(aluguer);
+        s.updateHistoricos(aluguer);
+        s.updateSingleViatura(viatura);
+        
+        return aluguer;
+    }
 }
+
