@@ -43,10 +43,23 @@ public class main
         proprietario.setPassword("torre da heyfell");
         proprietario.setMorada("ovos mexidos street");
         proprietario.setDataNasc(date);
-
-        proprietario.addViatura(viatura, systemLogs);
-        systemLogs.addCliente(cliente);
-        systemLogs.addProprietario(proprietario);
+        
+        try{
+            proprietario.addViatura(viatura, systemLogs);
+        } catch(ViaturaJaExisteException e){
+            System.out.println(e);
+        }
+        try{
+            systemLogs.addCliente(cliente);
+        } catch(ClienteJaExisteException e){
+            System.out.println(e);
+        }
+        try{
+            systemLogs.addProprietario(proprietario);
+        } catch(ProprietarioJaExisteException e){
+            System.out.println(e);
+        }
+        
         System.out.println("SYS BEFORE ALUGUER " + systemLogs.toString() + "\n\n\n\n");
         (systemLogs.getClientes().get("21312")).alugaCarroEspecifico(systemLogs, "EZ-69-69", 50, 50);
         (systemLogs.getClientes().get("21312")).alugaCarroDist(systemLogs, 54, 53);

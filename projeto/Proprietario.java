@@ -57,9 +57,15 @@ public class Proprietario extends Atores
         this.classificacao = c;
     }
     
-    public void addViatura(Viatura viatura, Sistema s){
-        this.viaturaList.put(viatura.getMatricula(), viatura.clone());
-        s.addViatura(viatura.clone());
+    public void addViatura(Viatura viatura, Sistema s) throws ViaturaJaExisteException{
+        if(!this.viaturaList.containsKey(viatura.getMatricula())){
+            this.viaturaList.put(viatura.getMatricula(), viatura.clone());
+            try{
+                s.addViatura(viatura.clone());
+            } catch(ViaturaJaExisteException e){
+                System.out.println(e);
+            }
+        } else throw new ViaturaJaExisteException();
     }
     
     public Proprietario clone() {
@@ -97,7 +103,23 @@ public class Proprietario extends Atores
         }
     }
     
-    public void registaAluguer(Aluguer a){
+    public boolean requestAluguer(String matricula, Cliente cliente){
+        String[] opcoes = {"Sim",
+                           "Nao"};
+        int ret;
+        String prompt = "Deseja alugar a Viatura " + matricula + " ao Cliente " + cliente + "?";
+        
+        Menu request = new Menu(prompt, opcoes);
+        
+        request.executa();
+        
+        if(request.getOpcao() == 1)
+           return true;
+        else 
+            return false;
+    }
+    
+    /*public void registaAluguer(Aluguer a){
         double preco;
         double x,y;
         x = a.getPosX();
@@ -111,5 +133,5 @@ public class Proprietario extends Atores
         addAluguer(d);
         a.getViatura().addAluguer(d);
         //falta meter os outros historicos idk
-    }
+    }*/
 }

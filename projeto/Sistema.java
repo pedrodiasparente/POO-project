@@ -104,18 +104,23 @@ public class Sistema
         
     }
     
-    public void addCliente(Cliente clientes) {
-        this.clientes.put(clientes.getNif(), clientes.clone());
+    public void addCliente(Cliente cliente) throws ClienteJaExisteException {
+        if(!this.clientes.containsKey(cliente.getNif()))
+            this.clientes.put(cliente.getNif(), cliente.clone());
+        else throw new ClienteJaExisteException();
     }
     
-    public void addProprietario(Proprietario prop) {
-        this.proprietarios.put(prop.getNif(), prop.clone());
+    public void addProprietario(Proprietario prop) throws ProprietarioJaExisteException {
+        if(!this.proprietarios.containsKey(prop.getNif())){
+            this.proprietarios.put(prop.getNif(), prop.clone());
+        }
+        else throw new ProprietarioJaExisteException();
     }
-    
-    
-    
-    public void addViatura(Viatura viatura) {
-        this.viaturas.put(viatura.getMatricula(), viatura.clone());
+     
+    public void addViatura(Viatura viatura) throws ViaturaJaExisteException {
+        if(!this.viaturas.containsKey(viatura.getMatricula())){
+            this.viaturas.put(viatura.getMatricula(), viatura.clone());
+        } else throw new ViaturaJaExisteException();
     }
     
     public void addAluguer(DadosAluguer aluguer) {
@@ -130,6 +135,18 @@ public class Sistema
         return "Sistema =>\nClientes: " + getClientes() + "\nProprietarios: " + getProprietarios() + "\nViaturas: " + getViaturas() + "\nTotalHistory: " + getTotHist();
     }
     
+    public Proprietario getProprietarioViatura(String matricula){
+        Proprietario prop = new Proprietario();
+
+        for(Proprietario p1 : this.proprietarios.values()){
+            if(p1.getViaturas().containsKey(matricula)){
+                prop = p1.clone();
+            }
+        }
+        
+        return prop;
+    }
+    
     public void updateSingleViatura(Viatura newViatura){
         Proprietario prop = new Proprietario();
 
@@ -139,7 +156,12 @@ public class Sistema
             }
         }
         
-        prop.addViatura(newViatura, this);
+        try{
+            prop.addViatura(newViatura, this);
+        } catch(ViaturaJaExisteException e){
+            System.out.println(e);
+        }
+        
         this.proprietarios.put(prop.getNif(), prop);
         
         return;
