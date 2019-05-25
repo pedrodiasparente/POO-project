@@ -12,14 +12,15 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class Menu {
-    // variáveis de instância
+    private String prompt;
     private List<String> opcoes;
     private int op;
     
     /**
      * Constructor for objects of class Menu
      */
-    public Menu(String[] opcoes) {
+    public Menu(String prompt, String[] opcoes) {
+        this.prompt = prompt;
         this.opcoes = Arrays.asList(opcoes);
         this.op = 0;
     }
@@ -37,7 +38,7 @@ public class Menu {
     
     /** Apresentar o menu */
     private void showMenu() {
-        System.out.println("\n *** Menu *** ");
+        System.out.println("\n" + this.prompt + " ***");
         for (int i=0; i<this.opcoes.size(); i++) {
             System.out.print(i+1);
             System.out.print(" - ");

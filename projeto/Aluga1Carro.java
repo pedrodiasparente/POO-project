@@ -29,7 +29,7 @@ public class Aluga1Carro {
                            "Adicionar Proprietario",
                            "Adicionar Cliente",
                            "outras coisas"};
-        this.menu = new Menu(opcoes);        
+        this.menu = new Menu("#Menu:",opcoes);        
     }
 
     /**
