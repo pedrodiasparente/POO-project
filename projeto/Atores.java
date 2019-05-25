@@ -12,28 +12,28 @@ public abstract class Atores implements Comparable<Atores>, Serializable{
     private String nome;
     private String password;
     private String morada;
-    private LocalDate dataNasc;
     private Map<Double, DadosAluguer> historico;
     private String nif;
+    private List<Double> classificacao;
     
     public Atores(){
         this.email = "";
         this.nome = "";
         this.password = "";
         this.morada = "";
-        this.dataNasc.of(1,1,1);
         this.historico = new HashMap<Double, DadosAluguer>();
         this.nif = "";
+        this.classificacao = new ArrayList<>();
     }
     
-    public Atores(String email, String password, String nome, String morada, LocalDate dataNasc, Map<Double, DadosAluguer> historico, String nif){
+    public Atores(String email, String password, String nome, String morada, Map<Double, DadosAluguer> historico, String nif, List<Double> classificacao){
         this.email = email;
         this.nome = nome;
         this.password = password;
         this.morada = morada;
-        this.dataNasc = dataNasc;
         this.nif = nif;
-        setHistorico(historico);
+        this.setClassificacao(classificacao);
+        this.setHistorico(historico);
     }
     
     public Atores(Atores p){
@@ -41,9 +41,9 @@ public abstract class Atores implements Comparable<Atores>, Serializable{
         this.password = p.getPassword();
         this.nome = p.getNome();
         this.morada = p.getMorada();
-        this.dataNasc = p.getDataNasc();
         this.nif = p.getNif();
         this.historico = p.getHistorico();
+        this.classificacao = p.getClassificacao();
     }
     
     public String getNif() {
@@ -66,10 +66,6 @@ public abstract class Atores implements Comparable<Atores>, Serializable{
         return this.morada;
     }
     
-    public LocalDate getDataNasc(){
-        return this.dataNasc;
-    }
-    
     public Map<Double, DadosAluguer> getHistorico(){
         Map<Double, DadosAluguer> hist = new HashMap<>();
         
@@ -77,6 +73,20 @@ public abstract class Atores implements Comparable<Atores>, Serializable{
             hist.put(d.getPreco(), d.clone());
         }
         return hist;
+    }
+    
+    public List<Double> getClassificacao(){
+        List<Double> newClass = new ArrayList<>();
+        for(double d : this.classificacao){
+            newClass.add(d);
+        }
+        return newClass;
+    }
+    
+    public double getMediaClassificacao(){
+        double total;
+        total = this.classificacao.stream().mapToDouble(f -> f.doubleValue()).sum();
+        return (total/this.classificacao.size());
     }
     
     public void setNif(String nif) {
@@ -99,15 +109,23 @@ public abstract class Atores implements Comparable<Atores>, Serializable{
         this.morada = morada;
     }
     
-    public void setDataNasc(LocalDate data){
-        this.dataNasc = data;
-    }
-    
     public void setHistorico(Map<Double, DadosAluguer> l){
         this.historico = new HashMap<>();
         for(DadosAluguer d : l.values()){
             this.historico.put(d.getPreco(), d.clone());
         }
+    }
+    
+    public void setClassificacao(List<Double> classificacao){
+        List<Double> newClass = new ArrayList<>();
+        for(double d : classificacao){
+            newClass.add(d);
+        }
+        this.classificacao = newClass;
+    }
+    
+    public void addClassificacao(double c){
+        this.classificacao.add(c);
     }
     
     public int compareTo(Atores a) {
@@ -129,10 +147,10 @@ public abstract class Atores implements Comparable<Atores>, Serializable{
        Atores a = (Atores) obj;
        return this.email.equals(a.getEmail()) && this.nome.equals(a.getNome()) && 
                 this.password.equals(a.getPassword()) && this.morada.equals(a.getMorada()) &&
-                this.dataNasc.equals(a.getDataNasc()) && this.nif.equals(a.getNif()); //falta historico
+                this.nif.equals(a.getNif()); //falta historico
     }
     
     public String toString() {
-        return "Nif: " + this.getNif() +" email: " + getEmail() + " nome: " + getNome() + "\npassword: " + getPassword() + " morada: " + getMorada() + "\ndata de nascimento: " + getDataNasc() + "\nhist: " + getHistorico();
+        return "Nif: " + this.getNif() +" email: " + this.getEmail() + " nome: " + this.getNome() + "\npassword: " + this.getPassword() + " morada: " + this.getMorada() + "\nhist: " + this.getHistorico();
     }
 }

@@ -12,27 +12,23 @@ public class Cliente extends Atores
 {
     private double posX;
     private double posY;
-    private List<Double> classificacao;
 
     public Cliente(){
         super();
         this.posX = 0;
         this.posY = 0;
-        this.classificacao = new ArrayList<>();
     }
 
-    public Cliente(String email, String password, String nome, String morada, LocalDate dataNasc, double posX, double posY, Map<Double, DadosAluguer> historico, String nif, List<Double> classificacao){
-        super(email,password,nome,morada, dataNasc, historico, nif);
+    public Cliente(String email, String password, String nome, String morada, double posX, double posY, Map<Double, DadosAluguer> historico, String nif, List<Double> classificacao){
+        super(email,password,nome,morada, historico, nif, classificacao);
         this.posX = posX;
         this.posY = posY;
-        this.classificacao = classificacao;
     }
 
     public Cliente(Cliente c){
         super(c);
         this.posX = c.getPosX();
         this.posY = c.getPosY();
-        this.classificacao = c.getClassificacao();
     }
 
     public double getPosX() {
@@ -42,20 +38,6 @@ public class Cliente extends Atores
     public double getPosY() {
         return this.posY;
     }
-    
-    public List<Double> getClassificacao(){
-        List<Double> newClass = new ArrayList<>();
-        for(double d : this.classificacao){
-            newClass.add(d);
-        }
-        return newClass;
-    }
-    
-    public double getMediaClassificacao(){
-        double total;
-        total = this.classificacao.stream().mapToDouble(f -> f.doubleValue()).sum();
-        return (total/this.classificacao.size());
-    }
 
     public void setPosX(double x) {
         this.posX = x;
@@ -63,18 +45,6 @@ public class Cliente extends Atores
 
     public void setPosY(double y) {
         this.posY = y;
-    }
-    
-    public void setClassificacao(List<Double> classificacao){
-        List<Double> newClass = new ArrayList<>();
-        for(double d : classificacao){
-            newClass.add(d);
-        }
-        this.classificacao = newClass;
-    }
-    
-    public void addClassificacao(double c){
-        this.classificacao.add(c);
     }
 
     public Cliente clone() {

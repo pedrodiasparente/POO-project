@@ -149,6 +149,10 @@ public class Sistema implements Serializable
         this.viaturas.put(viatura.getMatricula(), viatura.clone());
     }
     
+    public void updateProprietario(Proprietario proprietario){
+        this.proprietarios.put(proprietario.getNif(), proprietario.clone());
+    }
+    
     public void addAluguer(DadosAluguer aluguer) {
         this.totHist.put(aluguer.getPreco(), aluguer.clone());
     }
@@ -256,12 +260,18 @@ public class Sistema implements Serializable
                         atributos = str.split(",");
                         Viatura v = s.getViaturas().get(atributos[0]);
                         Cliente cc = s.getClientes().get(atributos[0]);
+                        Proprietario p = s.getProprietarios().get(atributos[0]);
                         if(atributos[0].charAt(2) == '-'){
                             v.addClassificacao(Double.parseDouble(atributos[1]));
                             s.updateSingleViatura(v);
                         } else{
-                            cc.addClassificacao(Double.parseDouble(atributos[1]));
-                            s.updateCliente(cc);
+                            if(cc != null){
+                                cc.addClassificacao(Double.parseDouble(atributos[1]));
+                                s.updateCliente(cc);
+                            } else{
+                                p.addClassificacao(Double.parseDouble(atributos[1]));
+                                s.updateProprietario(p);
+                            }
                         }
                         break;
                     default:

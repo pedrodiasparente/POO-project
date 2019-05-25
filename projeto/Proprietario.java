@@ -19,8 +19,8 @@ public class Proprietario extends Atores
         this.viaturaList = new HashMap<>();
     }
     
-    public Proprietario(String email, String password, String nome, String morada, LocalDate dataNasc, Map<Double, DadosAluguer> historico, Map<String,Viatura> viaturaList, String nif) {
-        super(email,password,nome,morada, dataNasc, historico, nif);
+    public Proprietario(String email, String password, String nome, String morada, Map<Double, DadosAluguer> historico, Map<String,Viatura> viaturaList, String nif, List<Double> classificacao) {
+        super(email,password,nome,morada, historico, nif, classificacao);
         this.viaturaList = viaturaList;
     }
     
