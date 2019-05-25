@@ -209,76 +209,86 @@ public class Sistema implements Serializable
         }
     }
         
-    public static Sistema loadData(String fich) throws FileNotFoundException, IOException{
+    public static Sistema loadData(String fich){
         Sistema s = new Sistema();
         s.setLoading(true);
-        BufferedReader br = new BufferedReader(new FileReader(fich));
         String linha, str;
         String[] cont;
         String[] atributos;
-        
-        while((linha = br.readLine()) != null) {
-            cont = linha.split(":");
-            switch(cont[0]){
-                case "NovoProp":
-                    try{
-                        s.addProprietario(Proprietario.stringToProp(cont[1]));
-                    } catch(ProprietarioJaExisteException e){
-                        System.out.println(e);
-                    }
-                    break;
-                case "NovoCliente":
-                    try{
-                        s.addCliente(Cliente.stringToCliente(cont[1]));
-                    } catch(ClienteJaExisteException e){
-                        System.out.println(e);
-                    }
-                    break;
-                case "NovoCarro":
-                    try{
-                        s.addViatura(Viatura.stringToViatura(cont[1]));
-                    } catch(ViaturaJaExisteException e){
-                        System.out.println(e);
-                    }
-                    break;
-                case "Aluguer":
-                    str = cont[1];
-                    atributos = str.split(",");
-                    Cliente c = s.getClientes().get(atributos[0]);
-                    if(atributos[4].equals("MaisPerto"))
-                        c.alugaCarroDist(s, Double.parseDouble(atributos[1]), Double.parseDouble(atributos[2]));
-                    else
-                        c.alugaCarroMaisBarato(s, Double.parseDouble(atributos[1]), Double.parseDouble(atributos[2]));
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(fich));
+            while((linha = br.readLine()) != null) {
+                cont = linha.split(":");
+                switch(cont[0]){
+                    case "NovoProp":
+                        try{
+                            s.addProprietario(Proprietario.stringToProp(cont[1]));
+                        } catch(ProprietarioJaExisteException e){
+                            System.out.println(e);
+                        }
+                        break;
+                    case "NovoCliente":
+                        try{
+                            s.addCliente(Cliente.stringToCliente(cont[1]));
+                        } catch(ClienteJaExisteException e){
+                            System.out.println(e);
+                        }
+                        break;
+                    case "NovoCarro":
+                        try{
+                            s.addViatura(Viatura.stringToViatura(cont[1]));
+                        } catch(ViaturaJaExisteException e){
+                            System.out.println(e);
+                        }
+                        break;
+                    case "Aluguer":
+                        str = cont[1];
+                        atributos = str.split(",");
+                        Cliente c = s.getClientes().get(atributos[0]);
+                        if(atributos[4].equals("MaisPerto"))
+                            c.alugaCarroDist(s, Double.parseDouble(atributos[1]), Double.parseDouble(atributos[2]));
+                        else
+                            c.alugaCarroMaisBarato(s, Double.parseDouble(atributos[1]), Double.parseDouble(atributos[2]));
                         s.updateCliente(c);
-                    break;
-                case "Classificacar":
-                    str = cont[1];
-                    atributos = str.split(",");
-                    Viatura v = s.getViaturas().get(atributos[0]);
-                    Cliente cc = s.getClientes().get(atributos[0]);
-                    if(atributos[0].charAt(2) == '-'){
-                        v.addClassificacao(Double.parseDouble(atributos[1]));
-                        s.updateSingleViatura(v);
-                    } else{
-                        cc.addClassificacao(Double.parseDouble(atributos[1]));
-                        s.updateCliente(cc);
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    case "Classificar":
+                        str = cont[1];
+                        atributos = str.split(",");
+                        Viatura v = s.getViaturas().get(atributos[0]);
+                        Cliente cc = s.getClientes().get(atributos[0]);
+                        if(atributos[0].charAt(2) == '-'){
+                            v.addClassificacao(Double.parseDouble(atributos[1]));
+                            s.updateSingleViatura(v);
+                        } else{
+                            cc.addClassificacao(Double.parseDouble(atributos[1]));
+                            s.updateCliente(cc);
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
+        } catch(FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
         }
-        
         s.setLoading(false);
         
         return s;
     }
 
-    public void saveEstado(String fich) throws IOException{
-        ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(fich));
-        oout.writeObject(this);
-        oout.flush();
-        oout.close();
+    public void saveEstado(String fich){
+        try{
+            ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(fich));
+            oout.writeObject(this);
+            oout.flush();
+            oout.close();
+        } catch(FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     public static Sistema readEstado(String fich){
@@ -287,6 +297,8 @@ public class Sistema implements Serializable
             ObjectInputStream oin = new ObjectInputStream(new FileInputStream(fich));
             s = (Sistema) oin.readObject();
             oin.close();
+        } catch(FileNotFoundException e) {
+            System.out.println(e.getMessage());
         } catch(IOException e){ 
             System.out.println(e.getMessage());
         } catch(ClassNotFoundException e){

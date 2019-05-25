@@ -1,4 +1,4 @@
-
+import java.io.*;
 /**
  * Write a description of class Aluga1Carro here.
  *
@@ -6,7 +6,7 @@
  * @version (a version number or a date)
  */
 public class Aluga1Carro {
-    
+    Sistema systemLogs;
     // Menus da aplicação
     private Menu menu;
     private Menu menuCliente;
@@ -24,13 +24,15 @@ public class Aluga1Carro {
      * 
      * Cria os menus e a camada de negócio.
      */
-    
     private Aluga1Carro() {
         // Criar o menu 
-        String[] opcoesMenu = {"Registar Cliente",
+        String[] opcoesMenu = {"Ler dos Logs",
+                               "Registar Cliente",
                                "Registar Proprietario",
                                "Log In Cliente",
-                               "Log In Proprietario"};
+                               "Log In Proprietario",
+                               "Guardar estado",
+                               "Carregar Estado"};
         String[] opcoesMenuCliente = {"Solicitar o aluguer de um carro mais próximo",
                                       "Solicitar o aluguer do carro mais barato",
                                       "Solicitar o aluguer do carro mais barato dentro de uma distância",
@@ -52,11 +54,14 @@ public class Aluga1Carro {
         do {
             menu.executa();
             switch (menu.getOpcao()) {
-                case 1: System.out.println("Escolheu registar Cliente");
+                case 1: System.out.println("Escolher ler os logs");
+                        systemLogs = Sistema.loadData("logsPOO_carregamentoincial.bak");
                         break;
-                case 2: System.out.println("Escolheu registar Proprietario");
+                case 2: System.out.println("Escolheu registar Cliente");
                         break;
-                case 3: System.out.println("Escolheu dar Log In como Cliente (Introduza 0 para dar Log Off)");
+                case 3: System.out.println("Escolheu registar Proprietario");
+                        break;
+                case 4: System.out.println("Escolheu dar Log In como Cliente (Introduza 0 para dar Log Off)");
                         do{
                             menuCliente.executa();
                             switch (menuCliente.getOpcao()) {
@@ -74,7 +79,7 @@ public class Aluga1Carro {
                         } while(menuCliente.getOpcao() != 0);
                         System.out.println("Deu Log Off");
                         break;
-                case 4: System.out.println("Escolheu dar Log In como Proprietario (Introduza 0 para dar Log Off)");
+                case 5: System.out.println("Escolheu dar Log In como Proprietario (Introduza 0 para dar Log Off)");
                         do{
                             menuProprietario.executa();
                             switch (menuProprietario.getOpcao()) {
@@ -89,6 +94,12 @@ public class Aluga1Carro {
                             }
                         } while(menuProprietario.getOpcao() != 0);
                         System.out.println("Deu Log Off");
+                        break;
+                case 6: System.out.println("Escolheu guardar o estado");
+                        systemLogs.saveEstado("estado.txt");
+                        break;
+                case 7: System.out.println("Escolheu carregar o estado");
+                        systemLogs = Sistema.readEstado("estado.txt");
                         break;
             }
         } while (menu.getOpcao()!=0); // A opção 0 é usada para sair do menu.
