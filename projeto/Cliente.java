@@ -126,8 +126,8 @@ public class Cliente extends Atores
 
         dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
         preco = dist * viatura.getPreco();
-        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
-        autonomia = combustivel / viatura.getConsumo();
+        combustivel = viatura.getCombustivel() - (dist * (viatura.getConsumo()/10));
+        autonomia = combustivel / (viatura.getConsumo()/10);
         viatura.setCombustivel(combustivel);
         viatura.setAutonomia(autonomia);
         viatura.setPosX(xDest);
@@ -142,11 +142,12 @@ public class Cliente extends Atores
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);
         s.updateSingleViatura(viatura);
+        (s.getProprietarios().get(viatura.getNifProprietario())).checkWarning(viatura);
 
         return aluguer;
     }
@@ -181,27 +182,22 @@ public class Cliente extends Atores
 
         dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
         preco = dist * viatura.getPreco();
-        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
-        autonomia = combustivel / viatura.getConsumo();
+        combustivel = viatura.getCombustivel() - (dist * (viatura.getConsumo()/10));
+        autonomia = combustivel / (viatura.getConsumo()/10);
         viatura.setCombustivel(combustivel);
         viatura.setAutonomia(autonomia);
         viatura.setPosX(xDest);
         viatura.setPosY(yDest);
 
-        for(Proprietario p1 : s.getProprietarios().values()){
-            if(p1.getViaturas().get(viatura.getMatricula()) != null){
-                prop = p1.clone();
-            }
-        }
-
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);
         s.updateSingleViatura(viatura);
+        (s.getProprietarios().get(viatura.getNifProprietario())).checkWarning(viatura);
 
         return aluguer;
     }
@@ -241,27 +237,22 @@ public class Cliente extends Atores
 
         dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
         preco = dist * viatura.getPreco();
-        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
-        autonomia = combustivel / viatura.getConsumo();
+        combustivel = viatura.getCombustivel() - (dist * (viatura.getConsumo()/10));
+        autonomia = combustivel / (viatura.getConsumo()/10);
         viatura.setCombustivel(combustivel);
         viatura.setAutonomia(autonomia);
         viatura.setPosX(xDest);
         viatura.setPosY(yDest);
 
-        for(Proprietario p1 : s.getProprietarios().values()){
-            if(p1.getViaturas().get(viatura.getMatricula()) != null){
-                prop = p1.clone();
-            }
-        }
-
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);
         s.updateSingleViatura(viatura);
+        (s.getProprietarios().get(viatura.getNifProprietario())).checkWarning(viatura);
 
         return aluguer;
     }
@@ -294,27 +285,22 @@ public class Cliente extends Atores
 
         dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
         preco = dist * viatura.getPreco();
-        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
-        autonomia = combustivel / viatura.getConsumo();
+        combustivel = viatura.getCombustivel() - (dist * (viatura.getConsumo()/10));
+        autonomia = combustivel / (viatura.getConsumo()/10);
         viatura.setCombustivel(combustivel);
         viatura.setAutonomia(autonomia);
         viatura.setPosX(xDest);
         viatura.setPosY(yDest);
 
-        for(Proprietario p1 : s.getProprietarios().values()){
-            if(p1.getViaturas().get(viatura.getMatricula()) != null){
-                prop = p1.clone();
-            }
-        }
-
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);
         s.updateSingleViatura(viatura);
+        (s.getProprietarios().get(viatura.getNifProprietario())).checkWarning(viatura);
 
         return aluguer;
     }
@@ -348,27 +334,22 @@ public class Cliente extends Atores
 
         dist = Math.hypot(viatura.getPosX() - xDest, viatura.getPosY() - yDest);
         preco = dist * viatura.getPreco();
-        combustivel = viatura.getCombustivel() - (dist * viatura.getConsumo());
-        autonomia = combustivel / viatura.getConsumo();
+        combustivel = viatura.getCombustivel() - (dist * (viatura.getConsumo()/10));
+        autonomia = combustivel / (viatura.getConsumo()/10);
         viatura.setCombustivel(combustivel);
         viatura.setAutonomia(autonomia);
         viatura.setPosX(xDest);
         viatura.setPosY(yDest);
 
-        for(Proprietario p1 : s.getProprietarios().values()){
-            if(p1.getViaturas().get(viatura.getMatricula()) != null){
-                prop = p1.clone();
-            }
-        }
-
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), prop.getNif(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);
         s.updateSingleViatura(viatura);
+        (s.getProprietarios().get(viatura.getNifProprietario())).checkWarning(viatura);
 
         return aluguer;
     }

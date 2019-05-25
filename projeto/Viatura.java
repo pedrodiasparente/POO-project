@@ -262,7 +262,8 @@ public class Viatura implements Comparable<Viatura>
         try {
             v.setPosY(Double.parseDouble(atributos[9]));
         } catch (NumberFormatException | NullPointerException e) {return null;}
-                
+        v.setCombustivel(v.getAutonomia() * (v.getConsumo()/10));     
+        
         return v;
     }
     //falta registar preço de viagens e responder a pedidos de alguguer

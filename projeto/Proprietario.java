@@ -45,14 +45,9 @@ public class Proprietario extends Atores
         }
     }
     
-    public void addViatura(Viatura viatura, Sistema s) throws ViaturaJaExisteException{
+    public void addViatura(Viatura viatura) throws ViaturaJaExisteException{
         if(!this.viaturaList.containsKey(viatura.getMatricula())){
             this.viaturaList.put(viatura.getMatricula(), viatura.clone());
-            try{
-                s.addViatura(viatura.clone());
-            } catch(ViaturaJaExisteException e){
-                System.out.println(e);
-            }
         } else throw new ViaturaJaExisteException();
     }
     
@@ -76,15 +71,19 @@ public class Proprietario extends Atores
         return super.toString() + "\nViaturas: " + getViaturas();
     }
     
-        public void abastecerVeiculo(double quantidade, Viatura v){
+    public void abastecerVeiculo(Sistema s, double quantidade,String v){
         double combustivel;
-        for(Viatura s : this.viaturaList.values()){
-            if (s.equals(v)){
-                combustivel = s.getCombustivel();
-                s.setCombustivel(combustivel + quantidade);
+        Viatura viaturaAbastecida = new Viatura();
+        for(Viatura v1 : this.viaturaList.values()){
+            if (v1.getMatricula().equals(v)){
+                viaturaAbastecida = v1.clone();
+                combustivel = viaturaAbastecida.getCombustivel();
+                v1.setCombustivel(combustivel + quantidade);
                 break;
             }
         }
+        viaturaAbastecida.setAutonomia(viaturaAbastecida.getCombustivel() / (viaturaAbastecida.getConsumo()/10));
+        s.updateSingleViatura(viaturaAbastecida);
     }
     
     public void alteraPrecoKm(double preco, Viatura v){
@@ -126,6 +125,12 @@ public class Proprietario extends Atores
         prop.setMorada(atributos[3]);
         
         return prop;
+    }
+    
+    public void checkWarning(Viatura v){
+        if(this.viaturaList.get(v.getMatricula()).getAutonomia() < 50){
+            System.out.println("[Warning] Proprietario " + this.getNif() + ": a Viatura " + v.getMatricula() + " so tem autonomia para " + v.getAutonomia() + "km!");
+        }
     }
     
     /*public void registaAluguer(Aluguer a){

@@ -43,6 +43,7 @@ public class main
         viatura.setCombustivel(400);
         viatura.setMarca("AudiR8 mfs");
         viatura.setMatricula("EZ-69-69");
+        viatura.setNifProprietario("69420");
         
         proprietario.setNif("69420");
         proprietario.setEmail("proprietario69@gmail.com");
@@ -50,12 +51,7 @@ public class main
         proprietario.setPassword("torre da heyfell");
         proprietario.setMorada("ovos mexidos street");
         proprietario.setDataNasc(date);
-        
-        try{
-            proprietario.addViatura(viatura, systemLogs);
-        } catch(ViaturaJaExisteException e){
-            System.out.println(e);
-        }
+       
         try{
             systemLogs.addCliente(cliente);
         } catch(ClienteJaExisteException e){
@@ -64,6 +60,11 @@ public class main
         try{
             systemLogs.addProprietario(proprietario);
         } catch(ProprietarioJaExisteException e){
+            System.out.println(e);
+        }
+        try{
+            systemLogs.addViatura(viatura);
+        } catch(ViaturaJaExisteException e){
             System.out.println(e);
         }
         

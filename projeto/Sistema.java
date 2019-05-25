@@ -137,6 +137,11 @@ public class Sistema
     public void addViatura(Viatura viatura) throws ViaturaJaExisteException {
         if(!this.viaturas.containsKey(viatura.getMatricula())){
             this.viaturas.put(viatura.getMatricula(), viatura.clone());
+            try{
+                this.proprietarios.get(viatura.getNifProprietario()).addViatura(viatura);
+            } catch(ViaturaJaExisteException e){
+                System.out.println(e);
+            }
         } else throw new ViaturaJaExisteException();
     }
     
