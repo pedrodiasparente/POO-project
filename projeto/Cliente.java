@@ -1,4 +1,5 @@
 import java.util.*;
+
 import java.time.LocalDate;
 
 /**
@@ -11,23 +12,27 @@ public class Cliente extends Atores
 {
     private double posX;
     private double posY;
+    private List<Double> classificacao;
 
     public Cliente(){
         super();
         this.posX = 0;
         this.posY = 0;
+        this.classificacao = new ArrayList<>();
     }
 
-    public Cliente(String email, String password, String nome, String morada, LocalDate dataNasc, double posX, double posY, Map<Double, DadosAluguer> historico, String nif){
+    public Cliente(String email, String password, String nome, String morada, LocalDate dataNasc, double posX, double posY, Map<Double, DadosAluguer> historico, String nif, List<Double> classificacao){
         super(email,password,nome,morada, dataNasc, historico, nif);
         this.posX = posX;
         this.posY = posY;
+        this.classificacao = classificacao;
     }
 
     public Cliente(Cliente c){
         super(c);
         this.posX = c.getPosX();
         this.posY = c.getPosY();
+        this.classificacao = c.getClassificacao();
     }
 
     public double getPosX() {
@@ -37,6 +42,20 @@ public class Cliente extends Atores
     public double getPosY() {
         return this.posY;
     }
+    
+    public List<Double> getClassificacao(){
+        List<Double> newClass = new ArrayList<>();
+        for(double d : this.classificacao){
+            newClass.add(d);
+        }
+        return newClass;
+    }
+    
+    public double getMediaClassificacao(){
+        double total;
+        total = this.classificacao.stream().mapToDouble(f -> f.doubleValue()).sum();
+        return (total/this.classificacao.size());
+    }
 
     public void setPosX(double x) {
         this.posX = x;
@@ -44,6 +63,18 @@ public class Cliente extends Atores
 
     public void setPosY(double y) {
         this.posY = y;
+    }
+    
+    public void setClassificacao(List<Double> classificacao){
+        List<Double> newClass = new ArrayList<>();
+        for(double d : classificacao){
+            newClass.add(d);
+        }
+        this.classificacao = newClass;
+    }
+    
+    public void addClassificacao(double c){
+        this.classificacao.add(c);
     }
 
     public Cliente clone() {
@@ -74,12 +105,14 @@ public class Cliente extends Atores
             dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
             if (min > dist && distDest <= v.getAutonomia()){
-                if(s.getProprietarioViatura(v.getMatricula()).requestAluguer(v.getMatricula(), this)){
-                    min = dist;
-                    ve = v.clone();
-                }
+                min = dist;
+                ve = v.clone();
             }
         }
+        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+            ve = null;
+        }
+        
         return ve;
     }
 
@@ -119,7 +152,6 @@ public class Cliente extends Atores
     }
 
     public Viatura solicitaCarroMaisBarato(Sistema s, double xDest, double yDest){
-
         double min = 999999999;
         double preco, dist;
         Viatura ve = new Viatura();
@@ -129,11 +161,12 @@ public class Cliente extends Atores
             preco = v.getPreco();
             dist= Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
             if (min > preco && dist <= v.getAutonomia()){
-                if(s.getProprietarioViatura(v.getMatricula()).requestAluguer(v.getMatricula(), this)){
                     min = preco;
                     ve = v.clone();
-                }
             }
+        }
+        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+            ve = null;
         }
         return ve;
     }
@@ -187,12 +220,14 @@ public class Cliente extends Atores
             dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
             if (min > preco && dist <= distancia && distDest <= v.getAutonomia()){
-                if(s.getProprietarioViatura(v.getMatricula()).requestAluguer(v.getMatricula(), this)){
-                    min = preco;
-                    ve = v.clone();
-                }
+                min = preco;
+                ve = v.clone();
             }
         }
+        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+            ve = null;
+        }
+        
         return ve;
     }
 
@@ -242,6 +277,10 @@ public class Cliente extends Atores
               ve = v.clone();
             }
         }
+        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+            ve = null;
+        }
+        
         return ve;
     }
 
@@ -292,6 +331,9 @@ public class Cliente extends Atores
             }
 
         }
+        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+            ve = null;
+        }
 
         return ve;
     }
@@ -329,5 +371,26 @@ public class Cliente extends Atores
         s.updateSingleViatura(viatura);
 
         return aluguer;
+    }
+    
+    public static Cliente stringToCliente(String s){
+        Cliente cliente = new Cliente();
+        String[] atributos;
+        
+        atributos = s.split(",");
+        
+        cliente.setNome(atributos[0]);
+        cliente.setNif(atributos[1]);
+        cliente.setPassword(atributos[1]);
+        cliente.setEmail(atributos[2]);
+        cliente.setMorada(atributos[3]);
+        try {
+            cliente.setPosX(Double.parseDouble(atributos[4]));
+        } catch (NumberFormatException | NullPointerException e) {return null;}
+        try {
+            cliente.setPosX(Double.parseDouble(atributos[4]));
+        } catch (NumberFormatException | NullPointerException e) {return null;}
+        
+        return cliente;
     }
 }

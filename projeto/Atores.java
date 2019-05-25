@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class Atores implements Comparable<Atores>{
+public abstract class Atores implements Comparable<Atores>{
     private String email;
     private String nome;
     private String password;

@@ -14,29 +14,33 @@ public class Viatura implements Comparable<Viatura>
     private double preco;
     private double consumo;
     private Map<Double, DadosAluguer> historico;
-    private double classificacao;
+    private List<Double> classificacao;
     private double posX;
     private double posY;
     private double autonomia;
     private double combustivel;
     private String marca;
     private String matricula;
+    private String nifProprietario;
+    private String tipo;
     
     public Viatura(){
         this.vMedia = 0;
         this.preco = 0;
         this.consumo = 0;
         this.historico = new HashMap<>();
-        this.classificacao = 0;
+        this.classificacao = new ArrayList<>();
         this.posX = 0;
         this.posY = 0;
         this.autonomia = 0;
         this.combustivel = 0;
         this.marca = "";
         this.matricula = "00-00-00";
+        this.nifProprietario = "";
+        this.tipo = "";
     }
     
-    public Viatura(double vmedia, double preco, double consumo, Map<Double, DadosAluguer> hist, double posx, double posy, double classi, double autonomia, double combustivel, String marca, String matricula){ 
+    public Viatura(double vmedia, double preco, double consumo, Map<Double, DadosAluguer> hist, double posx, double posy, List<Double> classi, double autonomia, double combustivel, String marca, String matricula, String proprietario, String tipo){ 
         this.vMedia = vmedia;
         this.preco = preco;
         this.consumo = consumo;
@@ -48,6 +52,8 @@ public class Viatura implements Comparable<Viatura>
         this.combustivel = combustivel;
         this.marca = marca;
         this.matricula = matricula;
+        this.nifProprietario = proprietario;
+        this.tipo = tipo;
     }
     
     public Viatura(Viatura v){
@@ -62,6 +68,8 @@ public class Viatura implements Comparable<Viatura>
         this.combustivel = v.getCombustivel();
         this.marca = v.getMarca();
         this.matricula = v.getMatricula();
+        this.nifProprietario = v.getNifProprietario();
+        this.tipo = v.getTipo();
     }
     
     public int compareTo(Viatura a) {
@@ -103,8 +111,18 @@ public class Viatura implements Comparable<Viatura>
         return this.posY;
     }
     
-    public double getClassificacao(){
-        return this.classificacao;
+    public List<Double> getClassificacao(){
+        List<Double> newClass = new ArrayList<>();
+        for(double d : this.classificacao){
+            newClass.add(d);
+        }
+        return newClass;
+    }
+    
+    public double getMediaClassificacao(){
+        double total;
+        total = this.classificacao.stream().mapToDouble(f -> f.doubleValue()).sum();
+        return (total/this.classificacao.size());
     }
     
     public double getAutonomia(){
@@ -122,6 +140,14 @@ public class Viatura implements Comparable<Viatura>
     public String getMatricula(){
         return this.matricula;
     }
+    
+    public String getNifProprietario(){
+        return this.nifProprietario;
+    }
+
+    public String getTipo(){
+        return this.tipo;
+    }    
     
     public void setVMedia(double v){
         this.vMedia = v;
@@ -154,8 +180,16 @@ public class Viatura implements Comparable<Viatura>
         this.posY = y;
     }
     
-    public void setClassificacao(int c){
-        this.classificacao = c;
+    public void setClassificacao(List<Double> classificacao){
+        List<Double> newClass = new ArrayList<>();
+        for(double d : classificacao){
+            newClass.add(d);
+        }
+        this.classificacao = newClass;
+    }
+    
+    public void addClassificacao(double c){
+        this.classificacao.add(c);
     }
     
     public void setCombustivel(double c){
@@ -174,26 +208,63 @@ public class Viatura implements Comparable<Viatura>
         this.matricula = matricula;
     }
     
+    public void setNifProprietario(String nif){
+        this.nifProprietario = nif;
+    }
+
+    public void setTipo(String t){
+        this.tipo = t;
+    }    
+    
     public boolean equals(Object obj) {
        if(obj==this) return true;
        if(obj==null || obj.getClass()!=this.getClass()) return false;
        Viatura v = (Viatura) obj;
        return this.vMedia == v.getVMedia() && this.preco == v.getPreco() && 
               this.consumo == v.getConsumo() && this.posX == v.getPosX() && this.posY == v.getPosY() &&
-              this.autonomia == v.getAutonomia() && this.classificacao == v.getClassificacao() && 
               this.combustivel == v.getCombustivel() && this.marca.equals(v.getMarca()) &&
-              this.matricula.equals(v.getMatricula()); //falta historico
+              this.matricula.equals(v.getMatricula()) && this.nifProprietario.equals(v.getNifProprietario()) &&
+              this.tipo.equals(v.getTipo()); //falta historico
     }
     
     public String toString() {
-        return "VelocMedia: " + getVMedia() + " Preco: " + getPreco() + " Consumo: " + getConsumo() + "\nClassificacao: " + getClassificacao() + " PosX: " + getPosX() + " PosY: " + getPosY() + "\nAutonomia: " + getAutonomia() + " Combustivel: " + getCombustivel() + "\nMarca: " + getMarca() + " Matricula: " + getMatricula() + "\nHistorico: " + getHistorico();
+        return "VelocMedia: " + getVMedia() + " Preco: " + getPreco() + " Consumo: " + getConsumo() + "\nClassificacao: " + getClassificacao() + " PosX: " + getPosX() + " PosY: " + getPosY() + "\nAutonomia: " + getAutonomia() + " Combustivel: " + getCombustivel() + "\nMarca: " + getMarca() + " Matricula: " + getMatricula() + " Tipo: " + getTipo() + "\nHistorico: " + getHistorico();
     }
     
     public Viatura clone() {
         return new Viatura(this);
     }
-
     
+    public static Viatura stringToViatura(String s){
+        String[] atributos;
+        Viatura v = new Viatura();
+        
+        atributos = s.split(",");
+        
+        v.setMarca(atributos[1]);
+        v.setMatricula(atributos[2]);
+        v.setNifProprietario(atributos[3]);
+        try {
+            v.setVMedia(Double.parseDouble(atributos[4]));
+        } catch (NumberFormatException | NullPointerException e) {return null;}
+        try {
+            v.setPreco(Double.parseDouble(atributos[5]));
+        } catch (NumberFormatException | NullPointerException e) {return null;}
+        try {
+            v.setConsumo(Double.parseDouble(atributos[6]));
+        } catch (NumberFormatException | NullPointerException e) {return null;}
+        try {
+            v.setAutonomia(Double.parseDouble(atributos[7]));
+        } catch (NumberFormatException | NullPointerException e) {return null;}
+        try {
+            v.setPosX(Double.parseDouble(atributos[8]));
+        } catch (NumberFormatException | NullPointerException e) {return null;}
+        try {
+            v.setPosY(Double.parseDouble(atributos[9]));
+        } catch (NumberFormatException | NullPointerException e) {return null;}
+                
+        return v;
+    }
     //falta registar preço de viagens e responder a pedidos de alguguer
 }
     
