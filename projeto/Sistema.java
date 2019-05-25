@@ -8,7 +8,7 @@ import java.io.*;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class Sistema
+public class Sistema implements Serializable
 {
     private Map<String, Cliente> clientes;
     private Map<String, Proprietario> proprietarios;
@@ -274,6 +274,25 @@ public class Sistema
         return s;
     }
 
+    public void saveEstado(String fich) throws IOException{
+        ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(fich));
+        oout.writeObject(this);
+        oout.flush();
+        oout.close();
+    }
     
+    public static Sistema readEstado(String fich){
+        Sistema s = new Sistema();
+        try {
+            ObjectInputStream oin = new ObjectInputStream(new FileInputStream(fich));
+            s = (Sistema) oin.readObject();
+            oin.close();
+        } catch(IOException e){ 
+            System.out.println(e.getMessage());
+        } catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        return s;
+    }
         
 }

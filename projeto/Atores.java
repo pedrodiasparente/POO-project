@@ -1,13 +1,13 @@
 import java.util.*;
 import java.time.LocalDate;
-
+import java.io.*;
 /**
  * Escreva a descrição da classe Proprietario aqui.
  * 
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public abstract class Atores implements Comparable<Atores>{
+public abstract class Atores implements Comparable<Atores>, Serializable{
     private String email;
     private String nome;
     private String password;

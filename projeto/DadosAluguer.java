@@ -1,6 +1,6 @@
- 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.*;
 
 /**
  * Escreva a descrição da classe DadosAluguer aqui.
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class DadosAluguer implements Comparable<DadosAluguer>
+public class DadosAluguer implements Comparable<DadosAluguer>,Serializable
 {
     private String viatura;
     private String nifProp;

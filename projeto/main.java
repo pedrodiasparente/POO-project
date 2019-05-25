@@ -7,8 +7,7 @@ import java.io.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class main
-{
+public class main{
     public static void main(String args[]) {
         LocalDate date = LocalDate.now();
         Cliente cliente = new Cliente();
@@ -16,12 +15,15 @@ public class main
         Viatura viatura = new Viatura();
         DadosAluguer aluguer = new DadosAluguer();
         Sistema systemLogs;
-        try{
-            systemLogs = Sistema.loadData("logsPOO_carregamentoincial.bak");
+        /*try{
+            //systemLogs = Sistema.loadData("logsPOO_carregamentoincial.bak");
+
         } catch(IOException e){
             systemLogs = new Sistema();
             System.out.println(e);
-        }
+        }*/
+        
+                    systemLogs = Sistema.readEstado("estadoServiço.txt");
         
         cliente.setNif("21312");
         cliente.setEmail("randomemail@gmail.com");
@@ -77,6 +79,11 @@ public class main
         System.out.println("Num Proprietarios: " + systemLogs.getProprietarios().size());
         System.out.println("Num Viaturas: " + systemLogs.getViaturas().size());
         System.out.println("Num Alugueres: " + systemLogs.getTotHist().size());
+        /*try{
+            systemLogs.saveEstado("estadoServiço.txt");
+        } catch(IOException e){
+            System.out.println(e);
+        }*/
         //System.out.println("Cliente => " + cliente.toString() + "\n\n\n");
         //System.out.println("Viatura => " + viatura.toString() + "\n\n\n");
         //System.out.println("Proprietario => " + proprietario.toString() + "\n\n\n");

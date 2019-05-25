@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.*;
 import java.lang.String;
+import java.io.*;
 
 /**
  * Escreva a descrição da classe Viatura aqui.
@@ -8,7 +9,7 @@ import java.lang.String;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class Viatura implements Comparable<Viatura>
+public class Viatura implements Comparable<Viatura>,Serializable
 {
     private double vMedia;
     private double preco;
