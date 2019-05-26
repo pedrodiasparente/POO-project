@@ -237,7 +237,7 @@ public class Viatura implements Comparable<Viatura>,Serializable
     }
     
     public String toString() {
-        return "VelocMedia: " + getVMedia() + " Preco: " + getPreco() + " Consumo: " + getConsumo() + "\nClassificacao: " + getClassificacao() + " PosX: " + getPosX() + " PosY: " + getPosY() + "\nAutonomia: " + getAutonomia() + " Combustivel: " + getCombustivel() + "\nMarca: " + getMarca() + " Matricula: " + getMatricula() + " Tipo: " + getTipo() + "\nHistorico: " + getHistorico();
+        return "Tipo de viatura" + this.getTipo() + "VelocMedia: " + getVMedia() + " Preco: " + getPreco() + " Consumo: " + getConsumo() + "\nClassificacao: " + getClassificacao() + " PosX: " + getPosX() + " PosY: " + getPosY() + "\nAutonomia: " + getAutonomia() + " Combustivel: " + getCombustivel() + "\nMarca: " + getMarca() + " Matricula: " + getMatricula() + " Tipo: " + getTipo() + "\nHistorico: " + getHistorico();
     }
     
     public Viatura clone() {
