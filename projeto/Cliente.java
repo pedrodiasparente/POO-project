@@ -79,7 +79,7 @@ public class Cliente extends Atores
                 ve = v.clone();
             }
         }
-        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+        if(s.getLoadingData() != true && ve != null && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
             ve = null;
         }
         
@@ -136,7 +136,7 @@ public class Cliente extends Atores
                     ve = v.clone();
             }
         }
-        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+        if(s.getLoadingData() != true && ve != null && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
             ve = null;
         }
         return ve;
@@ -183,14 +183,14 @@ public class Cliente extends Atores
             x = v.getPosX();
             y = v.getPosY();
             preco = v.getPreco();
-            dist = Math.pow(this.posX - x, 2) + Math.pow(this.posY - y, 2);
+            dist = Math.hypot(this.posX - x, this.posY - y);
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
             if (min > preco && dist <= distancia && distDest <= v.getAutonomia()){
                 min = preco;
                 ve = v.clone();
             }
         }
-        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+        if(s.getLoadingData() != true && ve != null && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
             ve = null;
         }
         
@@ -231,14 +231,14 @@ public class Cliente extends Atores
         double distDest;
         Viatura ve = new Viatura();
         ve = null;
-
+        
         for(Viatura v : s.getViaturas().values()){
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
             if (v.getMatricula().equals(matricula) && distDest <= v.getAutonomia()){
               ve = v.clone();
             }
         }
-        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+        if(s.getLoadingData() != true && ve != null && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
             ve = null;
         }
         
@@ -282,12 +282,12 @@ public class Cliente extends Atores
 
         for(Viatura v : s.getViaturas().values()){
             distDest = Math.hypot(v.getPosX() - xDest, v.getPosY() - yDest);
-            if (v.getAutonomia() == autonomia && distDest <= v.getAutonomia()){
+            if (v.getAutonomia() >= autonomia && distDest <= v.getAutonomia()){
                 ve = v.clone();
             }
 
         }
-        if(s.getLoadingData() != true && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
+        if(s.getLoadingData() != true && ve != null && !s.getProprietarioViatura(ve.getMatricula()).requestAluguer(ve.getMatricula(), this.getNif()) ){
             ve = null;
         }
 
