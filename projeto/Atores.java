@@ -42,8 +42,8 @@ public abstract class Atores implements Comparable<Atores>, Serializable{
         this.nome = p.getNome();
         this.morada = p.getMorada();
         this.nif = p.getNif();
-        this.historico = p.getHistorico();
-        this.classificacao = p.getClassificacao();
+        this.setHistorico(p.getHistorico());
+        this.setClassificacao(p.getClassificacao());
     }
     
     public String getNif() {

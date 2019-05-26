@@ -110,7 +110,7 @@ public class Aluga1Carro {
                                             y = sc.nextDouble();
                                             System.out.print("Insira distancia Maxima: ");
                                             dist = sc.nextDouble();
-                                            c.alugaCarroDistPreco(this.systemLogs, x, y, dist);
+                                            c.alugaCarroDistPreco(this.systemLogs, dist, x, y);
                                             break;
                                     case 4: System.out.println("Escolheu solicitar o aluguer de um carro especifico");
                                             System.out.print("Insira destino (X): ");
@@ -131,7 +131,7 @@ public class Aluga1Carro {
                                             y = sc.nextDouble();
                                             System.out.println("Insira Autonomia desejada");
                                             autonomia = sc.nextDouble();
-                                            c.alugaCarroAutonomia(this.systemLogs, x, y, autonomia);
+                                            c.alugaCarroAutonomia(this.systemLogs, autonomia, x, y);
                                             break;
                                     case 6: System.out.println(c.toString());
                                 }

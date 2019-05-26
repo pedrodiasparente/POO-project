@@ -229,10 +229,13 @@ public class Sistema implements Serializable
     
     public void updateHistoricos(DadosAluguer aluguer){
         this.addAluguer(aluguer.clone());
-        
+        Cliente newClient = new Cliente();
+        Map<Double,DadosAluguer> hist = new HashMap<>();
+
         for(Proprietario p : this.proprietarios.values()){
            if(p.getNif().equals(aluguer.getProprietario())){
                p.addAluguer(aluguer.clone());
+               this.updateProprietario(p);
            }
         }
         for(Viatura v : this.viaturas.values()){
@@ -240,9 +243,11 @@ public class Sistema implements Serializable
                v.addAluguer(aluguer.clone());
            }
         }
+        System.out.println(this.clientes.containsKey(aluguer.getCliente()));
         for(Cliente c : this.clientes.values()){
            if(c.getNif().equals(aluguer.getCliente())){
                c.addAluguer(aluguer.clone());
+               this.updateCliente(c);
            }
         }
     }
