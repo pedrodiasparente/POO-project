@@ -112,7 +112,7 @@ public class Cliente extends Atores
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco, dist);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);
@@ -162,7 +162,7 @@ public class Cliente extends Atores
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco, dist);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);
@@ -217,7 +217,7 @@ public class Cliente extends Atores
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco, dist);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);
@@ -265,7 +265,7 @@ public class Cliente extends Atores
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco, dist);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);
@@ -314,7 +314,7 @@ public class Cliente extends Atores
         this.setPosX(xDest);
         this.setPosY(yDest);
 
-        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco);
+        DadosAluguer aluguer = new DadosAluguer(viatura.getMatricula(), viatura.getNifProprietario(), this.getNif(), preco, dist);
 
         viatura.addAluguer(aluguer);
         s.updateHistoricos(aluguer);

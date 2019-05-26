@@ -148,7 +148,7 @@ public class Viatura implements Comparable<Viatura>,Serializable
 
     public String getTipo(){
         return this.tipo;
-    }    
+    }
     
     public void setVMedia(double v){
         this.vMedia = v;
@@ -163,6 +163,14 @@ public class Viatura implements Comparable<Viatura>,Serializable
         for(DadosAluguer d : l.values()){
             this.historico.put(d.getPreco(), d.clone());
         }
+    }
+    
+    public double totalFaturado(){
+        double res = 0;
+        for(DadosAluguer d : this.historico.values()){
+            res += d.getPreco();
+        }
+        return res;
     }
     
     public void addAluguer(DadosAluguer aluguer) {
@@ -267,6 +275,5 @@ public class Viatura implements Comparable<Viatura>,Serializable
         
         return v;
     }
-    //falta registar preço de viagens e responder a pedidos de alguguer
 }
     

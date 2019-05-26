@@ -38,6 +38,20 @@ public class Proprietario extends Atores
         return viaturaList;
     }
     
+        
+    public Viatura getSingleViatura(String v) throws ViaturaInexistenteException{
+        Viatura vret = null;
+        for(Viatura v1 : this.viaturaList.values()){
+            if (v1.getMatricula().equals(v)){
+                vret = v1.clone();
+                break;
+            }
+        }
+        if(vret != null)
+            return vret;
+        else throw new ViaturaInexistenteException();
+    }
+    
     public void setViaturas(Map<String, Viatura> l){
         this.viaturaList = new HashMap<>();
         for(Viatura v : l.values()){
@@ -68,31 +82,54 @@ public class Proprietario extends Atores
     }
     
     public String toString(){
-        return super.toString() + "\nViaturas: " + getViaturas();
+        return super.toString();
     }
     
-    public void abastecerVeiculo(Sistema s, double quantidade,String v){
+    public void abastecerViatura(Sistema s, double quantidade,String v) throws ViaturaInexistenteException{
         double combustivel;
-        Viatura viaturaAbastecida = new Viatura();
+        Viatura viaturaAbastecida = null;
         for(Viatura v1 : this.viaturaList.values()){
             if (v1.getMatricula().equals(v)){
                 viaturaAbastecida = v1.clone();
                 combustivel = viaturaAbastecida.getCombustivel();
                 v1.setCombustivel(combustivel + quantidade);
+                v1.setAutonomia(v1.getCombustivel()/(v1.getConsumo()/10));
                 break;
             }
         }
-        viaturaAbastecida.setAutonomia(viaturaAbastecida.getCombustivel() / (viaturaAbastecida.getConsumo()/10));
-        s.updateSingleViatura(viaturaAbastecida);
+        if(viaturaAbastecida != null){
+            viaturaAbastecida.setAutonomia(viaturaAbastecida.getCombustivel() / (viaturaAbastecida.getConsumo()/10));
+            s.updateSingleViatura(viaturaAbastecida);
+        } else throw new ViaturaInexistenteException();
     }
     
-    public void alteraPrecoKm(double preco, Viatura v){
-        for(Viatura s : this.viaturaList.values()){
-            if (s.equals(v)){
-                v.setPreco(preco);
+    public void alteraPrecoKm(Sistema s, double preco, String viatura) throws ViaturaInexistenteException{
+        Viatura vnew = null;
+        for(Viatura v : this.viaturaList.values()){
+            if (v.getMatricula().equals(viatura)){
+                vnew = v.clone();
+                vnew.setPreco(preco);
                 break;
             }
         }
+        if(vnew != null){
+            s.updateSingleViatura(vnew);
+        } else throw new ViaturaInexistenteException();
+    }
+    
+    public double getFaturacaoViatura(String viatura) throws ViaturaInexistenteException{
+        Viatura vnew = null;
+        double res = 0;
+        for(Viatura v : this.viaturaList.values()){
+            if (v.getMatricula().equals(viatura)){
+                vnew = v.clone();
+                res = vnew.totalFaturado();
+                break;
+            }
+        }
+        if(vnew != null){
+            return res;
+        } else throw new ViaturaInexistenteException();
     }
     
     public boolean requestAluguer(String matricula, String cliente){
@@ -109,6 +146,14 @@ public class Proprietario extends Atores
            return true;
         else 
             return false;
+    }
+    
+    public List<String> getMatriculas(){
+        List<String> lm = new ArrayList<>();
+        for(Viatura v : this.viaturaList.values()){
+            lm.add(v.getMatricula());
+        }
+        return lm;
     }
     
     public static Proprietario stringToProp(String s){

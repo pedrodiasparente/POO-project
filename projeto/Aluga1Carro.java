@@ -34,16 +34,22 @@ public class Aluga1Carro {
                                "Log In Cliente",
                                "Log In Proprietario",
                                "Guardar estado",
-                               "Carregar Estado"};
+                               "Carregar Estado",
+                               "Clientes mais utilizados",
+                               "Clientes mais kilometros"};
         String[] opcoesMenuCliente = {"Solicitar o aluguer de um carro mais próximo",
                                       "Solicitar o aluguer do carro mais barato",
                                       "Solicitar o aluguer do carro mais barato dentro de uma distância",
                                       "Solicitar o aluguer de um carro especifico",
-                                      "Solicitar o aluguer de um carro com autonomia desejada"};
+                                      "Solicitar o aluguer de um carro com autonomia desejada",
+                                      "Consultar informacoes do perfil"};
         String[] opcoesMenuProprietario = {"Registar Veiculo",
                                            "Abastecer Veiculo",
+                                           "Consultar faturacao viatura",
                                            "Alterar preço/km",
-                                           "Consultar suas Viaturas"};
+                                           "Consultar suas Viaturas",
+                                           "Consultar viatura especifica",
+                                           "Consultar informacoes do Perfil"};
         this.menu = new Menu("Menu:",opcoesMenu);
         this.menuCliente = new Menu("Menu Cliente:",opcoesMenuCliente);
         this.menuProprietario = new Menu("Menu Proprietario:",opcoesMenuProprietario);
@@ -127,6 +133,7 @@ public class Aluga1Carro {
                                             autonomia = sc.nextDouble();
                                             c.alugaCarroAutonomia(this.systemLogs, x, y, autonomia);
                                             break;
+                                    case 6: System.out.println(c.toString());
                                 }
                             } while(menuCliente.getOpcao() != 0);
                             System.out.println("Deu Log Off");
@@ -141,12 +148,59 @@ public class Aluga1Carro {
                                 menuProprietario.executa();
                                 switch (menuProprietario.getOpcao()) {
                                     case 1: System.out.println("Escolheu registar um veiculo");
+                                            try{
+                                                this.systemLogs.addViatura(this.scanViatura(p));
+                                            } catch(ViaturaJaExisteException e){
+                                                System.out.println(e.getMessage());
+                                            }
                                             break;
                                     case 2: System.out.println("Escolheu abastecer o seu veiculo");
+                                            System.out.println("Insira a viatura a abastecer");
+                                            matricula = sc.nextLine();
+                                            System.out.println("Insira a quantidade a abastecer");
+                                            x = sc.nextDouble();
+                                            sc.nextLine();
+                                            try{
+                                                p.abastecerViatura(this.systemLogs, x, matricula);
+                                            } catch(ViaturaInexistenteException e){
+                                                System.out.println(e);
+                                            }
                                             break;
-                                    case 3: System.out.println("Escolheu alterar preco/km");
+                                    case 3: System.out.println("Escolheu consultar a faturacao de uma viatura");
+                                            System.out.println("Insira a viatura a consultar");
+                                            matricula = sc.nextLine();
+                                            matricula = matricula.replace("\n", "");
+                                            try{
+                                                System.out.println("A faturacao da Viatura e " + p.getFaturacaoViatura(matricula));
+                                            } catch(ViaturaInexistenteException e){
+                                                System.out.println(e);
+                                            }
                                             break;
-                                    case 4: System.out.println("Escolheu consultar as suas viaturas");
+                                    case 4: System.out.println("Escolheu alterar preco/km");
+                                            System.out.println("Insira a viatura a Alterar");
+                                            matricula = sc.nextLine();
+                                            System.out.println("Insira o novo preco");
+                                            x = sc.nextDouble();
+                                            sc.nextLine();
+                                            try{
+                                                p.alteraPrecoKm(this.systemLogs, x, matricula);
+                                            } catch(ViaturaInexistenteException e){
+                                                System.out.println(e);
+                                            }
+                                            break;
+                                    case 5: System.out.println("Escolheu consultar as suas viaturas");
+                                            System.out.println(p.getMatriculas());
+                                            break;
+                                    case 6: System.out.println("Escolheu consultar uma viatura especifica");
+                                            matricula = sc.nextLine();
+                                            matricula = matricula.replace("\n", "");
+                                            try{
+                                                System.out.println(p.getSingleViatura(matricula).toString());
+                                            } catch(ViaturaInexistenteException e){
+                                                System.out.println(e);   
+                                            }
+                                            break;
+                                    case 7: System.out.println(p.toString());
                                             break;
                                 }
                             } while(menuProprietario.getOpcao() != 0);
@@ -160,6 +214,12 @@ public class Aluga1Carro {
                         break;
                 case 7: System.out.println("Escolheu carregar o estado");
                         systemLogs = Sistema.readEstado("estado.txt");
+                        break;
+                case 8: System.out.println("Os clientes que mais usam o sistema sao:");
+                        System.out.println(this.systemLogs.clientesMaisUtilizados());
+                        break;
+                case 9: System.out.println("Os clientes que mais km fazem sao:");
+                        System.out.println(this.systemLogs.clientesMaisKm());
                         break;
             }
         } while (menu.getOpcao()!=0); // A opção 0 é usada para sair do menu.
@@ -202,9 +262,34 @@ public class Aluga1Carro {
         p.setPassword(scin.nextLine());
         System.out.println("Insira a Morada:");
         p.setMorada(scin.nextLine());
-        System.out.println("Insira a Posicao X:");
 
         return p;
+    }
+    
+    private Viatura scanViatura(Proprietario p){
+        Viatura v = new Viatura();
+        Scanner scin = new Scanner(System.in);
+        
+        System.out.println("Insira a Matricula:");
+        v.setMatricula(scin.nextLine());
+        System.out.println("Insira a marca:");
+        v.setMarca(scin.nextLine());
+        System.out.println("Insira o tipo de Viatura:");
+        v.setTipo(scin.nextLine());
+        System.out.println("Insira a Velocidade Media da Viatura:");
+        v.setVMedia(scin.nextDouble());
+        System.out.println("Insira o consumo da Viatura:");
+        v.setConsumo(scin.nextDouble());
+        System.out.println("Insira a Autonomia da Viatura:");
+        v.setAutonomia(scin.nextDouble());
+        v.setCombustivel((v.getAutonomia() * v.getConsumo())/10);
+        v.setNifProprietario(p.getNif());
+        System.out.println("Insira a posicao x da Viatura:");
+        v.setPosX(scin.nextDouble());
+        System.out.println("Insira a posicao y da Viatura:");
+        v.setPosY(scin.nextDouble());
+        
+        return v;
     }
     
     private Cliente loginCliente() throws FailedLoginException{

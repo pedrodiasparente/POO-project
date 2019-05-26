@@ -38,7 +38,7 @@ public class Menu {
     
     /** Apresentar o menu */
     private void showMenu() {
-        System.out.println("\n" + this.prompt + " ***");
+        System.out.println("\n" + this.prompt);
         for (int i=0; i<this.opcoes.size(); i++) {
             System.out.print(i+1);
             System.out.print(" - ");

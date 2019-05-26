@@ -193,6 +193,40 @@ public class Sistema implements Serializable
         return;
     }
     
+    public List<String> clientesMaisUtilizados(){
+        List<String> dezClientes = new ArrayList<>();
+        Set<Cliente> clientesSet = new TreeSet<>(new VezesComparator());
+        int i = 0;
+        
+        for(Cliente c : this.clientes.values()){
+            clientesSet.add(c);
+        }
+        
+        for(Cliente c : clientesSet){
+            dezClientes.add(c.getNif());
+            i++;
+            if(i == 10) break;
+        }
+        return dezClientes;
+    }
+    
+    public List<String> clientesMaisKm(){
+        List<String> dezClientes = new ArrayList<>();
+        Set<Cliente> clientesSet = new TreeSet<>(new KmComparator());
+        int i = 0;
+        
+        for(Cliente c : this.clientes.values()){
+            clientesSet.add(c);
+        }
+        
+        for(Cliente c : clientesSet){
+            dezClientes.add(c.getNif());
+            i++;
+            if(i == 10) break;
+        }
+        return dezClientes;
+    }
+    
     public void updateHistoricos(DadosAluguer aluguer){
         this.addAluguer(aluguer.clone());
         
